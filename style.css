@@ -4,6 +4,7 @@
     padding:0;
     border: 0;
     font-size: 0;
+    user-select: none;
 
 }
 
@@ -50,8 +51,16 @@ header {
     background-image: url(images/TheOregonTrailTitle.png);
     background-size: contain;
     background-repeat: no-repeat;
-    display: block;
-    margin: auto;
+    display: inline-block;
+
+}
+
+#mainTextDisplay{
+    width: 60%;
+    height: auto;
+    text-align: center;
+    display: inline-block;
+
 
 }
 
@@ -68,6 +77,36 @@ header {
     border-radius: 6px;
     padding: 4px 30px;
     margin-top: 1vh;
+
+}
+
+#wagonRight {
+
+     background-color: black;
+     top: 0;
+     right: 0;
+     height: 15vh;
+     width: 15vw;
+     margin-top: 2vh;
+     background-image: url(images/wagonImageRight.png);
+     background-repeat: no-repeat;
+     background-size: contain;
+     position: absolute;
+
+}
+
+#wagonLeft {
+
+    background-color: black;
+    top: 0;
+    Left: 0;
+    height: 15vh;
+    width: 15vw;
+    margin-top: 2vh;
+    background-image: url(images/wagonImageLeft.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
 
 }
 
@@ -88,7 +127,7 @@ header {
 
     background-color: black;
     display: block;
-    font-size: 1.4vmin;
+    font-size: 1.6vmin;
     text-align: left;
     color: white;
     padding-top: 2vh;
@@ -121,6 +160,7 @@ header {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    align-content: flex-start;
 
 }
 
@@ -172,10 +212,11 @@ header {
 footer {
 
     width: 100vw;
-    height: 5vh;
+    height: 8vh;
     background-color: black;
     display: inline-block;
     text-align: center;
+
 }
 
 
@@ -183,7 +224,7 @@ footer {
     width: 5.2vw;
     height: 8vw;
     margin: .7vw;
-    margin-top: 3vh;
+    margin-top: 3.5vh;
     background-size: contain;
     background-repeat: no-repeat;
 
@@ -198,10 +239,11 @@ footer {
 
 #gameBody > div.card:hover {
 
-    width: 5.5vw;
-    height: 8.3vw;
-    margin: .55vw;
+    width: 5.2vw;
+    height: 8vw;
+    margin: .7vw;
     margin-top: 1vh;
+    padding-bottom: 2.5vh;
     background-image: url(images/cardback.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -218,6 +260,7 @@ footer {
     font-family: MECC;
     cursor: pointer;
     border-radius: 5%;
+    margin-top: 2vh;
 }
 
 #aboutMeButton{
@@ -231,8 +274,26 @@ footer {
     cursor: pointer;
     border-radius: 5%;
     float: left;
-    margin-right: -7vw;
-    margin-left: 3vw;
+    margin-right: -9.22vw;
+    margin-left: 5.22vw;
+    margin-top: 2vh;
+
+}
+
+#muteMusicButton{
+
+    font-size: 10px;
+    height:3vh;
+    width: 4vw;
+    background-color: #202020;
+    color: white;
+    font-family: MECC;
+    cursor: pointer;
+    border-radius: 5%;
+    float: right;
+    margin-right: 5.22vw;
+    margin-left: -9.22vw;
+    margin-top: 2vh;
 
 }
 
@@ -336,9 +397,9 @@ footer {
 
 }
 
-.tumbleweed{
+.boulder{
 
-    background-image: url(images/tumbleweed.png);
+    background-image: url(images/boulder.png);
 
 }
 
@@ -369,8 +430,8 @@ footer {
 
 p {
     font-size: 1.35vw;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 60px;
+    padding-right: 60px;
     padding-top: 15px;
 }
 
