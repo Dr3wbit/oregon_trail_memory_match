@@ -123,7 +123,7 @@ header {
 
 }
 
-#leftSideBar > div{
+#leftSideBar > div {
 
     background-color: black;
     display: block;
@@ -133,6 +133,36 @@ header {
     padding-top: 2vh;
     padding-left: 50px;
 
+}
+
+.measlesText {
+    color: red;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
+
+}
+
+.exhaustionText {
+
+    color: purple;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
+
+}
+
+.typhoidText {
+
+    color: limegreen;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
+
+}
+
+.dysenteryText {
+
+    color: yellow;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
 
 }
 
@@ -233,7 +263,7 @@ footer {
 
 .card {
 
-    background-image: url(images/alternateCardBack2.png);
+    background-image: url(images/cardback.png);
 
 }
 
@@ -244,7 +274,7 @@ footer {
     margin: .7vw;
     margin-top: 1vh;
     padding-bottom: 2.5vh;
-    background-image: url(images/alternateCardBack2.png);
+    background-image: url(images/cardback.png);
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
