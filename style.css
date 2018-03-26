@@ -233,7 +233,7 @@ footer {
 
 .card {
 
-    background-image: url(images/cardback.png);
+    background-image: url(images/alternateCardBack2.png);
 
 }
 
@@ -244,7 +244,7 @@ footer {
     margin: .7vw;
     margin-top: 1vh;
     padding-bottom: 2.5vh;
-    background-image: url(images/cardback.png);
+    background-image: url(images/alternateCardBack2.png);
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
