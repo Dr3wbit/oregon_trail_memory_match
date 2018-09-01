@@ -9,7 +9,7 @@ const cardTypes = {
         },
         onMatch: function () {
             applyAilment('exhaustion');
-            shiftHealthIndicator(-15);
+            shiftHealthIndicator(-16);
             displayEffect('You Are Exhausted...');
         },
     },
@@ -23,7 +23,7 @@ const cardTypes = {
         },
         onMatch: function () {
             applyAilment('dysentery');
-            shiftHealthIndicator(-15);
+            shiftHealthIndicator(-16);
             displayEffect('You Have Dysentery...');
         },
 },
@@ -37,7 +37,7 @@ const cardTypes = {
         },
         onMatch: function () {
             applyAilment('typhoid');
-            shiftHealthIndicator(-15);
+            shiftHealthIndicator(-16);
             displayEffect('You Have Typhoid...');
         },
     },
@@ -51,7 +51,7 @@ const cardTypes = {
         },
         onMatch: function () {
             applyAilment(' measles');
-            shiftHealthIndicator(-15);
+            shiftHealthIndicator(-16);
             displayEffect('You Have Measles...');
         },
     },
@@ -106,8 +106,6 @@ const cardTypes = {
             displayEffect();
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },
@@ -120,8 +118,6 @@ const cardTypes = {
             displayEffect();
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },
@@ -134,8 +130,6 @@ const cardTypes = {
             displayEffect();
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },
@@ -162,8 +156,6 @@ const cardTypes = {
             displayEffect( );
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },
@@ -176,8 +168,6 @@ const cardTypes = {
             displayEffect();
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },
@@ -190,8 +180,6 @@ const cardTypes = {
             displayEffect();
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },
@@ -204,8 +192,6 @@ const cardTypes = {
             displayEffect();
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
             displayEffect();
         },
     },

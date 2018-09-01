@@ -6,6 +6,7 @@ let timerBarDepletionCounter = -1;
 let totalWins = 0;
 let totalDeaths = 0;
 let cardClicksDisabled = false;
+let score = 0;
 
 
 $(document).ready(initializeApplication);
@@ -51,7 +52,6 @@ function dealCards(cardData) {
         let thisCardName = cardTypeArray[i];
         let thisCardData = cardData[thisCardName];
         for (let cardCount = 0; cardCount < thisCardData.count; cardCount++) {
-            winCondition++;
             card = $('<div>', {
                 class: "card",
                 type: cardTypeArray[i],
@@ -128,25 +128,29 @@ function handleCardClick() {
                 $('.card').removeClass('disableClick');
                 let firstCard = cardMemory[0];
                 let secondCard = cardMemory[1];
-                $("[type='" + firstCard + "']").removeClass(firstCard).addClass('card');
-                $("[type='" + secondCard + "']").removeClass(secondCard).addClass('card');
+                $("[type='" + firstCard + "']").removeClass(firstCard).addClass('card','disableClick');
+                $("[type='" + secondCard + "']").removeClass(secondCard).addClass('card','disableClick');
                 cardMemory = null;
                 cardsCurrentlyFlipped = 0;
             }, 800);
+            score = score -20;
         }
 
         else if (cardMemory[0] === cardMemory[1]) {
             cardTypes[clickedCard.attr('type')].onMatch();
-            $("[type='" + cardMemory[0] + "']").addClass('disableClick');
-            $("[type='" + cardMemory[1] + "']").addClass('disableClick');
+            $("[type='" + cardMemory[0] + "']").addClass('matched');
+            $("[type='" + cardMemory[1] + "']").addClass('matched');
             cardMatchSound.play();
             cardMemory = null;
             cardsCurrentlyFlipped = 0;
+            score = score + 200;
             winCondition++;
             winGame();
         }
-
     }
+    $('#score').text('SCORE : ' + score);
+
+    checkForDeath();
 }
 
 function applyAilment(ailment) {
@@ -159,43 +163,53 @@ function applyAilment(ailment) {
 };
 
 function shiftHealthIndicator(life) {
+    let maxLoop = life
+    let counter = 0;
     let time = $('.timerBar');
+    $('.card').addClass('disableClick');
     if (life <= 0) {
         let DamageCounter = timerBarDepletionCounter
-        for (let i = 0; i > life; i--){
+        for (let i = 0; i > life; i--) {
             DamageCounter++
             $(time[DamageCounter]).addClass('damage');
         }
-
-        for (let i = 0; i > life; i--){
-            let delay = i;
-            ((delay) => {
+        (function delayLoop() {
+            if (counter-- <= maxLoop) {
+                $('.card').removeClass('disableClick');
+                return;
+            } else {
                 setTimeout(() => {
-                    timerBarDepletionCounter++ ,
+                    timerBarDepletionCounter++;
                     $(time[timerBarDepletionCounter]).removeClass('damage');
-                        $(time[timerBarDepletionCounter]).addClass('depleted');
-                }, 300 * (-delay + 1));
-            })(i);
-        }
+                    $(time[timerBarDepletionCounter]).addClass('depleted');
+                    delayLoop();
+                }, 100)
+            }
+        })();
 
     } else {
         let HealingCounter = timerBarDepletionCounter
-        for (let i = 0; i < life; i++){
+        for (let i = 0; i < life; i++) {
             HealingCounter--
-            $(time[HealingCounter +1]).addClass('healing');
+            $(time[HealingCounter + 1]).addClass('healing');
         }
-        for (let i = 0; i < life; i++){
-            let delay = i;
-            ((delay) => {
+        (function delayLoop() {
+            if (counter++ >= maxLoop) {
+                $('.card').removeClass('disableClick');
+                return;
+            } else {
                 setTimeout(() => {
+                    if (timerBarDepletionCounter < 0){
+                        $('.card').removeClass('disableClick');
+                        return;
+                    };
                     timerBarDepletionCounter--;
                     $(time[timerBarDepletionCounter + 1]).removeClass('healing');
                     $(time[timerBarDepletionCounter + 1]).removeClass('depleted');
-                }, 300 * (delay + 1));
-            })(i);
-        }
-        $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
-        checkForDeath();
+                    delayLoop();
+                }, 100)
+            }
+        })();
     }
 }
 
@@ -204,7 +218,6 @@ function checkForDeath() {
     if ($('.depleted').length >= 90) {
         console.log('You Lose');
         $('#mainText').text('You Have Died...');
-        $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
         $('.card').addClass('disableClick');
         totalDeaths++;
         $('#totalDeaths').text('DEATHS : ' + totalDeaths);
@@ -214,12 +227,10 @@ function checkForDeath() {
 
 function winGame() {
     if (winCondition === 15) {
-        console.log('You Win');
         winSound.play();
         $('#mainText').text('You Made It to Oregon!');
         totalWins++;
         $('#totalWins').text('WINS : ' + totalWins);
-        $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
     }
 }
 
