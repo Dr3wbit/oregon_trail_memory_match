@@ -348,7 +348,10 @@ footer {
 
 .disableClick {
     pointer-events: none;
+}
 
+.matched {
+    pointer-events: none;
 }
 
 .exhaustion{
