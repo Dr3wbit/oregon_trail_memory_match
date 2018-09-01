@@ -4,12 +4,12 @@ const cardTypes = {
         name: 'exhaustion',
         count: 2,
         image: 'exhaustion.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -18,26 +18,26 @@ const cardTypes = {
         name: 'dysentery',
         count: 2,
         image: 'dysentery.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
-    },
+},
     
     typhoid: {
         name: 'typhoid',
         count: 2,
         image: 'typhoid.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -46,12 +46,12 @@ const cardTypes = {
         name: 'measles',
         count: 2,
         image: 'measles.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -60,12 +60,12 @@ const cardTypes = {
         name: 'freshWater',
         count: 2,
         image: 'freshWater.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -74,12 +74,12 @@ const cardTypes = {
         name: 'heartyFood',
         count: 2,
         image: 'heartyFood.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -88,12 +88,12 @@ const cardTypes = {
         name: 'restStop',
         count: 2,
         image: 'restStop.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -102,12 +102,12 @@ const cardTypes = {
         name: 'oxen',
         count: 2,
         image: 'oxen.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -116,12 +116,12 @@ const cardTypes = {
         name: 'river',
         count: 2,
         image: 'river.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -130,12 +130,12 @@ const cardTypes = {
         name: 'tree',
         count: 2,
         image: 'tree.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -144,12 +144,12 @@ const cardTypes = {
         name: 'rifle',
         count: 2,
         image: 'rifle.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -158,12 +158,12 @@ const cardTypes = {
         name: 'cactus',
         count: 2,
         image: 'cactus.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -172,12 +172,12 @@ const cardTypes = {
         name: 'bovineSkull',
         count: 2,
         image: 'bovineSkull.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -186,12 +186,12 @@ const cardTypes = {
         name: 'deer',
         count: 2,
         image: 'deer.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
@@ -200,12 +200,12 @@ const cardTypes = {
         name: 'boulder',
         count: 2,
         image: 'boulder.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
+            
             displayEffect('');
         },
     },
