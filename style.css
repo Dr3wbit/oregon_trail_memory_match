@@ -223,7 +223,14 @@ header {
     background-color: grey;
     width: 4vw;
     margin-left: 5.5vw;
+}
 
+.timerBar.damage {
+    background-color: red;
+}
+
+.timerBar.healing {
+    background-color: aqua;
 }
 
 #rightImg {

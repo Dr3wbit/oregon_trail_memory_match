@@ -4,13 +4,13 @@ const cardTypes = {
         name: 'exhaustion',
         count: 2,
         image: 'exhaustion.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('You Are Tired');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            applyAilment('exhaustion');
+            shiftHealthIndicator(-15);
+            displayEffect('You Are Exhausted...');
         },
     },
     
@@ -18,27 +18,27 @@ const cardTypes = {
         name: 'dysentery',
         count: 2,
         image: 'dysentery.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('That Water Was Fowl...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            applyAilment('dysentery');
+            shiftHealthIndicator(-15);
+            displayEffect('You Have Dysentery...');
         },
-    },
+},
     
     typhoid: {
         name: 'typhoid',
         count: 2,
         image: 'typhoid.png',
-        onFirstclick: function () {
-            displayEffect();
+        onFirstClick: function () {
+            displayEffect('That Water Tasted Funny...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            applyAilment('typhoid');
+            shiftHealthIndicator(-15);
+            displayEffect('You Have Typhoid...');
         },
     },
     
@@ -46,13 +46,13 @@ const cardTypes = {
         name: 'measles',
         count: 2,
         image: 'measles.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('You Dont Feel So Good');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            applyAilment(' measles');
+            shiftHealthIndicator(-15);
+            displayEffect('You Have Measles...');
         },
     },
     
@@ -60,13 +60,13 @@ const cardTypes = {
         name: 'freshWater',
         count: 2,
         image: 'freshWater.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('You See a Well In The Distance...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            shiftHealthIndicator(8);
+            
+            displayEffect('You Feel Hydrated From Fresh Water!');
         },
     },
     
@@ -74,13 +74,13 @@ const cardTypes = {
         name: 'heartyFood',
         count: 2,
         image: 'heartyFood.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('You Look For Food...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            shiftHealthIndicator(8);
+            
+            displayEffect('You Feel Full From A Hearty Meal!');
         },
     },
     
@@ -88,13 +88,13 @@ const cardTypes = {
         name: 'restStop',
         count: 2,
         image: 'restStop.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('You See A Town In The Distance');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            shiftHealthIndicator(8);
+            
+            displayEffect('You Feel Safe And Rested!');
         },
     },
     
@@ -102,13 +102,13 @@ const cardTypes = {
         name: 'oxen',
         count: 2,
         image: 'oxen.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
     
@@ -116,13 +116,13 @@ const cardTypes = {
         name: 'river',
         count: 2,
         image: 'river.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
     
@@ -130,13 +130,13 @@ const cardTypes = {
         name: 'tree',
         count: 2,
         image: 'tree.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
     
@@ -144,13 +144,13 @@ const cardTypes = {
         name: 'rifle',
         count: 2,
         image: 'rifle.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect('You Spot A Wild Animal');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            shiftHealthIndicator(8);
+            
+            displayEffect('You Gain Food From A Hunt!');
         },
     },
     
@@ -158,13 +158,13 @@ const cardTypes = {
         name: 'cactus',
         count: 2,
         image: 'cactus.png',
-        onFirstclick: function () {
+        onFirstClick: function () {
             displayEffect( );
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
     
@@ -172,13 +172,13 @@ const cardTypes = {
         name: 'bovineSkull',
         count: 2,
         image: 'bovineSkull.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
     
@@ -186,13 +186,13 @@ const cardTypes = {
         name: 'deer',
         count: 2,
         image: 'deer.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
     
@@ -200,13 +200,13 @@ const cardTypes = {
         name: 'boulder',
         count: 2,
         image: 'boulder.png',
-        onFirstclick: function () {
-            displayEffect( );
+        onFirstClick: function () {
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
-            playMatchSound();
-            displayEffect('');
+            
+            displayEffect();
         },
     },
 }
