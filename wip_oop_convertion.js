@@ -1,30 +1,4 @@
-let cardClickSound = new Audio();
-cardClickSound.src = 'soundFX/card_clicked.wav';
-cardClickSound.volume = 0.1;
 
-let noMatchSound = new Audio();
-noMatchSound.src = 'soundFX/no_match.wav';
-noMatchSound.volume = .5;
-
-let cardMatchSound = new Audio();
-cardMatchSound.src = 'soundFX/match-made.wav';
-cardMatchSound.volume = .2;
-
-let themeSong = new Audio();
-themeSong.src = 'soundFX/main_song.mp3';
-themeSong.volume = .2;
-themeSong.onpause = function () {
-    this.play();
-};
-
-let ailmentSound = new Audio();
-ailmentSound.src = 'soundFX/ailment.wav';
-
-let winSound = new Audio();
-winSound.src = 'soundFX/win_sound.wav';
-winSound.volume = .2;
-
-let cardTypeArray = ['exhaustion', 'exhaustion', 'dysentery', 'dysentery', 'typhoid', 'typhoid', 'measles', 'measles', 'freshWater', 'freshWater', 'heartyFood', 'heartyFood', 'restStop', 'restStop', 'oxen', 'oxen', 'river', 'river', 'tree', 'tree', 'rifle', 'rifle', 'cactus', 'cactus', 'bovineSkull', 'bovineSkull', 'deer', 'deer', 'boulder', 'boulder'];
 let cardMemory = null;
 let cardsCurrentlyFlipped = 0;
 let winCondition = 0;
@@ -65,7 +39,7 @@ function initializeApplication() {
     let timerBar = createTimerBar(cards);
     $('#rightSideBar').append(timerBar);
     applyDefaultsToAllCardData(cardTypes, defaultMethods);
-    // themeSong.play();
+    themeSong.play();
 }
 
 function dealCards(cardData) {
@@ -116,6 +90,9 @@ function applyDefaultsToObjects(object, defaultValues) {
 }
 
 function displayEffect(message) {
+    if (!message) {
+        message = 'Match The Cards!'
+    }
     $('#mainText').text(message);
 }
 
@@ -142,7 +119,6 @@ function handleCardClick() {
         cardMemory.push(cardType);
 
         if (cardMemory[0] !== cardMemory[1]) {
-            displayEffect('pick a card!');
             $('.card').addClass('disableClick');
             cardClicksDisabled = true
             setTimeout(() => {
@@ -169,9 +145,63 @@ function handleCardClick() {
             winCondition++;
             winGame();
         }
-    }
 
-    if ($('.depleted').length >= cardTypeArray.length * 3) {
+    }
+}
+
+function applyAilment(ailment) {
+    ailmentSound.play();
+    let AilmentToAppend = $('<div>', {
+        class: ailment + 'Text',
+        text: ailment.toUpperCase(),
+    });
+    $('#currentAilments').append(AilmentToAppend);
+};
+
+function shiftHealthIndicator(life) {
+    let time = $('.timerBar');
+    if (life <= 0) {
+        let DamageCounter = timerBarDepletionCounter
+        for (let i = 0; i > life; i--){
+            DamageCounter++
+            $(time[DamageCounter]).addClass('damage');
+        }
+
+        for (let i = 0; i > life; i--){
+            let delay = i;
+            ((delay) => {
+                setTimeout(() => {
+                    timerBarDepletionCounter++ ,
+                    $(time[timerBarDepletionCounter]).removeClass('damage');
+                        $(time[timerBarDepletionCounter]).addClass('depleted');
+                }, 300 * (-delay + 1));
+            })(i);
+        }
+
+    } else {
+        let HealingCounter = timerBarDepletionCounter
+        for (let i = 0; i < life; i++){
+            HealingCounter--
+            $(time[HealingCounter +1]).addClass('healing');
+        }
+        for (let i = 0; i < life; i++){
+            let delay = i;
+            ((delay) => {
+                setTimeout(() => {
+                    timerBarDepletionCounter--;
+                    $(time[timerBarDepletionCounter + 1]).removeClass('healing');
+                    $(time[timerBarDepletionCounter + 1]).removeClass('depleted');
+                }, 300 * (delay + 1));
+            })(i);
+        }
+        $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
+        checkForDeath();
+    }
+}
+
+
+function checkForDeath() {
+    if ($('.depleted').length >= 90) {
         console.log('You Lose');
         $('#mainText').text('You Have Died...');
         $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
@@ -180,26 +210,6 @@ function handleCardClick() {
         $('#totalDeaths').text('DEATHS : ' + totalDeaths);
         ailmentSound.play();
     }
-}
-
-function shiftHealthIndicator(life) {
-    let time = $('.timerBar');
-    if (life <= 0) {
-        for (let i = 0; i > life; i--) {
-            timerBarDepletionCounter++;
-            $(time[timerBarDepletionCounter]).addClass('depleted');
-        }
-
-    } else {
-        for (let i = 0; i < life; i++) {
-
-            timerBarDepletionCounter--;
-            $(time[timerBarDepletionCounter]).removeClass('depleted');
-
-        }
-    }
-    $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
-
 }
 
 function winGame() {
@@ -228,7 +238,6 @@ function resetGame() {
 
 function openTheAboutModal() {
     let aboutMeModal = $('.aboutModal');
-    let openModal = $('#aboutMeButton');
     aboutMeModal.addClass('modalVisibility');
     $('.card').addClass('disableClick')
 
@@ -236,7 +245,6 @@ function openTheAboutModal() {
 
 function closeTheModal() {
     let aboutMeModal = $('.aboutModal');
-    let closeModal = $('#closeModalButton');
     aboutMeModal.removeClass('modalVisibility');
     $('.card').removeClass('disableClick');
 }
@@ -244,3 +252,29 @@ function closeTheModal() {
 function muteMusic() {
     themeSong.muted = true;
 }
+
+const cardClickSound = new Audio();
+cardClickSound.src = 'soundFX/card_clicked.wav';
+cardClickSound.volume = 0.1;
+
+const noMatchSound = new Audio();
+noMatchSound.src = 'soundFX/no_match.wav';
+noMatchSound.volume = .5;
+
+const cardMatchSound = new Audio();
+cardMatchSound.src = 'soundFX/match-made.wav';
+cardMatchSound.volume = .2;
+
+const themeSong = new Audio();
+themeSong.src = 'soundFX/main_song.mp3';
+themeSong.volume = .2;
+themeSong.onpause = function () {
+    this.play();
+};
+
+const ailmentSound = new Audio();
+ailmentSound.src = 'soundFX/ailment.wav';
+
+const winSound = new Audio();
+winSound.src = 'soundFX/win_sound.wav';
+winSound.volume = .2;

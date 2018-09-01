@@ -5,12 +5,12 @@ const cardTypes = {
         count: 2,
         image: 'exhaustion.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('You Are Tired');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
-            displayEffect('');
+            applyAilment('exhaustion');
+            shiftHealthIndicator(-15);
+            displayEffect('You Are Exhausted...');
         },
     },
     
@@ -19,12 +19,12 @@ const cardTypes = {
         count: 2,
         image: 'dysentery.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('That Water Was Fowl...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
-            displayEffect('');
+            applyAilment('dysentery');
+            shiftHealthIndicator(-15);
+            displayEffect('You Have Dysentery...');
         },
 },
     
@@ -33,12 +33,12 @@ const cardTypes = {
         count: 2,
         image: 'typhoid.png',
         onFirstClick: function () {
-            displayEffect();
+            displayEffect('That Water Tasted Funny...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
-            displayEffect('');
+            applyAilment('typhoid');
+            shiftHealthIndicator(-15);
+            displayEffect('You Have Typhoid...');
         },
     },
     
@@ -47,12 +47,12 @@ const cardTypes = {
         count: 2,
         image: 'measles.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('You Dont Feel So Good');
         },
         onMatch: function () {
-            shiftHealthIndicator();
-            
-            displayEffect('');
+            applyAilment(' measles');
+            shiftHealthIndicator(-15);
+            displayEffect('You Have Measles...');
         },
     },
     
@@ -61,12 +61,12 @@ const cardTypes = {
         count: 2,
         image: 'freshWater.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('You See a Well In The Distance...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
+            shiftHealthIndicator(8);
             
-            displayEffect('');
+            displayEffect('You Feel Hydrated From Fresh Water!');
         },
     },
     
@@ -75,12 +75,12 @@ const cardTypes = {
         count: 2,
         image: 'heartyFood.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('You Look For Food...');
         },
         onMatch: function () {
-            shiftHealthIndicator();
+            shiftHealthIndicator(8);
             
-            displayEffect('');
+            displayEffect('You Feel Full From A Hearty Meal!');
         },
     },
     
@@ -89,12 +89,12 @@ const cardTypes = {
         count: 2,
         image: 'restStop.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('You See A Town In The Distance');
         },
         onMatch: function () {
-            shiftHealthIndicator();
+            shiftHealthIndicator(8);
             
-            displayEffect('');
+            displayEffect('You Feel Safe And Rested!');
         },
     },
     
@@ -103,12 +103,12 @@ const cardTypes = {
         count: 2,
         image: 'oxen.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
     
@@ -117,12 +117,12 @@ const cardTypes = {
         count: 2,
         image: 'river.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
     
@@ -131,12 +131,12 @@ const cardTypes = {
         count: 2,
         image: 'tree.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
     
@@ -145,12 +145,12 @@ const cardTypes = {
         count: 2,
         image: 'rifle.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect('You Spot A Wild Animal');
         },
         onMatch: function () {
-            shiftHealthIndicator();
+            shiftHealthIndicator(8);
             
-            displayEffect('');
+            displayEffect('You Gain Food From A Hunt!');
         },
     },
     
@@ -164,7 +164,7 @@ const cardTypes = {
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
     
@@ -173,12 +173,12 @@ const cardTypes = {
         count: 2,
         image: 'bovineSkull.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
     
@@ -187,12 +187,12 @@ const cardTypes = {
         count: 2,
         image: 'deer.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
     
@@ -201,12 +201,12 @@ const cardTypes = {
         count: 2,
         image: 'boulder.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
         onMatch: function () {
             shiftHealthIndicator();
             
-            displayEffect('');
+            displayEffect();
         },
     },
 }
