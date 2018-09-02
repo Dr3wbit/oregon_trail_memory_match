@@ -40,11 +40,9 @@ function initializeApplication() {
     let timerBar = createTimerBar(cards);
     $('#rightSideBar').append(timerBar);
     applyDefaultsToAllCardData(cardTypes, defaultMethods);
-    themeSong.play();
 }
 
 function dealCards(cardData) {
-    console.log('Dealing Cards ...');
     let card = null;
     let cardTypeArray = Object.keys(cardData);
     let cardsToAppend = [];
@@ -110,7 +108,7 @@ function handleCardClick() {
 
     if (cardMemory === null && cardsCurrentlyFlipped === 1) {
         cardMemory = [];
-        cardMemory.push(cardType);
+        cardMemory.push(cardType, clickedCard);
         clickedCard.addClass('disableClick');
         cardTypes[clickedCard.attr('type')].onFirstClick();
         cardClicksDisabled = false;
@@ -119,15 +117,16 @@ function handleCardClick() {
         cardTypes[clickedCard.attr('type')].onSecondClick();
         cardMemory.push(cardType);
         cardClicksDisabled = true;
+        cardMemory[1].removeClass('disableClick');
 
-        if (cardMemory[0] !== cardMemory[1]) {
+        if (cardMemory[0] !== cardMemory[2]) {
 
             setTimeout(() => {
                 cardTypes[clickedCard.attr('type')].onMissmatch();
                 cardClicksDisabled = false;
                 noMatchSound.play();
                 let firstCard = cardMemory[0];
-                let secondCard = cardMemory[1];
+                let secondCard = cardMemory[2];
                 $("[type='" + firstCard + "']").removeClass(firstCard).addClass('card');
                 $("[type='" + secondCard + "']").removeClass(secondCard).addClass('card');
                 cardMemory = null;
@@ -137,7 +136,7 @@ function handleCardClick() {
         } else {
             cardTypes[clickedCard.attr('type')].onMatch();
             $("[type='" + cardMemory[0] + "']").addClass('matched');
-            $("[type='" + cardMemory[1] + "']").addClass('matched');
+            $("[type='" + cardMemory[2] + "']").addClass('matched');
             cardMatchSound.play();
             cardMemory = null;
             cardsCurrentlyFlipped = 0;
@@ -151,8 +150,6 @@ function handleCardClick() {
         score = 0;
     }
     $('#score').text('SCORE : ' + score);
-
-    checkForDeath();
 }
 
 function applyAilment(ailment) {
@@ -168,7 +165,6 @@ function shiftHealthIndicator(life) {
     let maxLoop = life
     let counter = 0;
     let time = $('.timerBar');
-    $('.card').addClass('disableClick');
     if (life <= 0) {
         let DamageCounter = timerBarDepletionCounter
         for (let i = 0; i > life; i--) {
@@ -177,7 +173,7 @@ function shiftHealthIndicator(life) {
         }
         (function delayLoop() {
             if (counter-- <= maxLoop) {
-                $('.card').removeClass('disableClick');
+                checkForDeath();
                 return;
             } else {
                 setTimeout(() => {
@@ -197,12 +193,11 @@ function shiftHealthIndicator(life) {
         }
         (function delayLoop() {
             if (counter++ >= maxLoop) {
-                $('.card').removeClass('disableClick');
+                checkForDeath();
                 return;
             } else {
                 setTimeout(() => {
                     if (timerBarDepletionCounter < 0) {
-                        $('.card').removeClass('disableClick');
                         return;
                     };
                     timerBarDepletionCounter--;
@@ -217,7 +212,6 @@ function shiftHealthIndicator(life) {
 
 function checkForDeath() {
     if ($('.depleted').length >= 90) {
-        console.log('You Lose');
         $('#mainText').text('You Have Died...');
         $('.card').addClass('disableClick');
         totalDeaths++;
@@ -263,8 +257,14 @@ function closeTheModal() {
     $('.card').removeClass('disableClick');
 }
 
-function muteMusic() {
-    themeSong.muted = true;
+function toggleMusic() {
+    if (themeSong.paused){
+        themeSong.play();
+        $('#muteMusicButton').text('Stop Music');
+    }else{
+        themeSong.pause();
+        $('#muteMusicButton').text('Play Music');
+    }
 }
 
 const cardClickSound = new Audio();
@@ -282,9 +282,7 @@ cardMatchSound.volume = .2;
 const themeSong = new Audio();
 themeSong.src = 'soundFX/main_song.mp3';
 themeSong.volume = .2;
-themeSong.onpause = function () {
-    this.play();
-};
+themeSong.autoplay = true;
 
 const ailmentSound = new Audio();
 ailmentSound.src = 'soundFX/ailment.wav';
