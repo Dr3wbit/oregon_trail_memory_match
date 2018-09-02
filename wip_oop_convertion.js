@@ -101,42 +101,40 @@ function handleCardClick() {
     if (cardClicksDisabled) {
         return
     }
+    cardClicksDisabled = true;
     let clickedCard = $(clickedElement);
     let cardType = $(clickedCard).attr('type');
     cardsCurrentlyFlipped++;
-    clickedCard.addClass(cardType);
+    clickedCard.addClass(cardType).removeClass('card');
     cardClickSound.play();
-    let i = 0;
 
     if (cardMemory === null && cardsCurrentlyFlipped === 1) {
         cardMemory = [];
         cardMemory.push(cardType);
         clickedCard.addClass('disableClick');
         cardTypes[clickedCard.attr('type')].onFirstClick();
+        cardClicksDisabled = false;
 
     } else if (cardMemory !== null && cardsCurrentlyFlipped === 2) {
         cardTypes[clickedCard.attr('type')].onSecondClick();
         cardMemory.push(cardType);
+        cardClicksDisabled = true;
 
         if (cardMemory[0] !== cardMemory[1]) {
-            $('.card').addClass('disableClick');
-            cardClicksDisabled = true
+
             setTimeout(() => {
                 cardTypes[clickedCard.attr('type')].onMissmatch();
                 cardClicksDisabled = false;
                 noMatchSound.play();
-                $('.card').removeClass('disableClick');
                 let firstCard = cardMemory[0];
                 let secondCard = cardMemory[1];
-                $("[type='" + firstCard + "']").removeClass(firstCard).addClass('card','disableClick');
-                $("[type='" + secondCard + "']").removeClass(secondCard).addClass('card','disableClick');
+                $("[type='" + firstCard + "']").removeClass(firstCard).addClass('card');
+                $("[type='" + secondCard + "']").removeClass(secondCard).addClass('card');
                 cardMemory = null;
                 cardsCurrentlyFlipped = 0;
             }, 800);
-            score = score -20;
-        }
-
-        else if (cardMemory[0] === cardMemory[1]) {
+            score = score - 20;
+        } else {
             cardTypes[clickedCard.attr('type')].onMatch();
             $("[type='" + cardMemory[0] + "']").addClass('matched');
             $("[type='" + cardMemory[1] + "']").addClass('matched');
@@ -146,7 +144,11 @@ function handleCardClick() {
             score = score + 200;
             winCondition++;
             winGame();
+            cardClicksDisabled = false;
         }
+    }
+    if (score <= 0) {
+        score = 0;
     }
     $('#score').text('SCORE : ' + score);
 
@@ -199,7 +201,7 @@ function shiftHealthIndicator(life) {
                 return;
             } else {
                 setTimeout(() => {
-                    if (timerBarDepletionCounter < 0){
+                    if (timerBarDepletionCounter < 0) {
                         $('.card').removeClass('disableClick');
                         return;
                     };
@@ -212,7 +214,6 @@ function shiftHealthIndicator(life) {
         })();
     }
 }
-
 
 function checkForDeath() {
     if ($('.depleted').length >= 90) {
@@ -242,6 +243,8 @@ function resetGame() {
     cardMemory = null;
     timerBarDepletionCounter = -1;
     winCondition = 0;
+    score = 0;
+    $('#score').text('SCORE : 0');
     $('#mainText').text('Match The Cards!');
     initializeApplication();
 

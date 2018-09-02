@@ -19,7 +19,7 @@ const cardTypes = {
         count: 2,
         image: 'dysentery.png',
         onFirstClick: function () {
-            displayEffect('That Water Was Fowl...');
+            displayEffect('Your Stomach Hurts');
         },
         onMatch: function () {
             applyAilment('dysentery');
