@@ -1,15 +1,12 @@
-*, body, html {
-
+* {
     margin:0;
     padding:0;
     border: 0;
     font-size: 0;
     user-select: none;
-
 }
 
 @font-face {
-
     font-family: MECC;
     src: url('Fonts/MECC.ttf');
 }
@@ -20,54 +17,45 @@
 }
 
 #container {
-
     width: 100vw;
     height: 100vh;
     background-color: black;
     display: inline-block;
-    box-sizing: border-box;
     color: white;
     font-family: MECC;
-
 }
 
 header {
-
+    height: 20%;
     width: 100vw;
-    height: 25vh;
     background-color: black;
     display: inline-block;
     text-align: center;
-    font-size: 18px;
+    font-size: 1em;
     color: white;
+}
 
+#gameContainer {
+    height: 65%;
 }
 
 #banner {
-
     background-color: black;
-    height: 18vh;
+    height:100%;
     width: 60%;
     background-image: url(images/TheOregonTrailTitle.png);
     background-size: contain;
     background-repeat: no-repeat;
     display: inline-block;
-
 }
 
 #mainTextDisplay{
-    width: 60%;
-    height: auto;
+    width: 100%;
     text-align: center;
-    display: inline-block;
-
-
+    display: block;
 }
 
 #mainTextDisplay span {
-
-    width: auto;
-    height: auto;
     display: inline-block;
     background-color: black;
     text-align: center;
@@ -76,114 +64,80 @@ header {
     border: solid white 5px;
     border-radius: 6px;
     padding: 4px 30px;
-    margin-top: 1vh;
-
 }
 
 #wagonRight {
-
      background-color: black;
      top: 0;
      right: 0;
-     height: 15vh;
+     height: 15%;
      width: 15vw;
      margin-top: 2vh;
      background-image: url(images/wagonImageRight.png);
      background-repeat: no-repeat;
      background-size: contain;
      position: absolute;
-
 }
 
 #wagonLeft {
-
     background-color: black;
     top: 0;
     Left: 0;
-    height: 15vh;
+    height: 15%;
     width: 15vw;
     margin-top: 2vh;
     background-image: url(images/wagonImageLeft.png);
     background-repeat: no-repeat;
     background-size: contain;
     position: absolute;
-
 }
 
 #leftSideBar {
-
     width: 14.8vw ;
-    height: 65vh;
     background-color: black;
     display: inline-block;
     font-size: 10px;
     text-align: left;
     color: white;
     vertical-align: top;
-
 }
 
 #leftSideBar > div {
-
+    width: 14vw;
     background-color: black;
     display: block;
-    font-size: 1.6vmin;
+    font-size: 1em;
     text-align: left;
     color: white;
     padding-top: 2vh;
-    padding-left: 50px;
-
-}
-
-.measlesText {
-    color: red;
-    font-size: 1.6vmin;
-    padding-top: 3vh;
-
-}
-
-.exhaustionText {
-
-    color: purple;
-    font-size: 1.6vmin;
-    padding-top: 3vh;
-
-}
-
-.typhoidText {
-
-    color: limegreen;
-    font-size: 1.6vmin;
-    padding-top: 3vh;
-
-}
-
-.dysenteryText {
-
-    color: yellow;
-    font-size: 1.6vmin;
-    padding-top: 3vh;
-
+    padding-left: 10%;
 }
 
 #leftImg {
-
-    height: 65vh;
     width: 2.2vw;
+    height: 100%;
     background-image: url(images/oregonTrailLeftSideBarImage.png);
-    -webkit-background-size: contain;
     background-size: contain;
     background-repeat: no-repeat;
     vertical-align: top;
     display: inline-block;
     text-align: right;
+}
 
+#rightImg {
+    height: 100%;
+    width: 2.2vw;
+    background-image: url(images/oregonTrailRightSideBarImage.png);
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: top;
+    display: inline-block;
 }
 
 #gameBody {
-
     width: 66vw;
-    height: 65vh;
+    height: 100%;
     background-color: black;
     box-sizing: border-box;
     display: inline-flex;
@@ -191,32 +145,26 @@ header {
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-content: flex-start;
-
 }
 
 #rightSideBar {
-
     width: 14.8vw;
-    height: 65vh;
+    height: 100%;
     background-color:black;
     display: inline-block;
     font-size: 10px;
     text-align: center;
     color: white;
     vertical-align: top;
-
 }
 
 .timerBar {
-
     width: 5vw;
-    height: .43vh;
+    height: 1.1%;
     background-color: chartreuse;
     display: block;
-    margin: 2px;
     margin-left: 5vw;
     text-align: center;
-
 }
 
 .timerBar.depleted {
@@ -233,29 +181,13 @@ header {
     background-color: aqua;
 }
 
-#rightImg {
-
-    height: 65vh;
-    width: 2.2vw;
-    background-image: url(images/oregonTrailRightSideBarImage.png);
-    -webkit-background-size: contain;
-    background-size: contain;
-    background-repeat: no-repeat;
-    vertical-align: top;
-    display: inline-block;
-
-}
-
 footer {
-
     width: 100vw;
-    height: 8vh;
     background-color: black;
-    display: inline-block;
+    padding-top: 10px;
+    display: block;
     text-align: center;
-
 }
-
 
 #gameBody > div {
     width: 5.2vw;
@@ -264,18 +196,13 @@ footer {
     margin-top: 3.5vh;
     background-size: contain;
     background-repeat: no-repeat;
-
-
 }
 
 .card {
-
     background-image: url(images/cardback.png);
-
 }
 
 #gameBody > div.card:hover {
-
     width: 5.2vw;
     height: 8vw;
     margin: .7vw;
@@ -285,7 +212,6 @@ footer {
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
-
 }
 
 #gameResetButton{
@@ -296,12 +222,11 @@ footer {
     color: white;
     font-family: MECC;
     cursor: pointer;
-    border-radius: 5%;
-    margin-top: 2vh;
+    margin-right: 19%;
+    margin-left: 19%;
 }
 
 #aboutMeButton{
-
     font-size: 10px;
     height:3vh;
     width: 4vw;
@@ -309,16 +234,10 @@ footer {
     color: white;
     font-family: MECC;
     cursor: pointer;
-    border-radius: 5%;
-    float: left;
-    margin-right: -9.22vw;
-    margin-left: 5.22vw;
-    margin-top: 2vh;
-
+    margin-right: 20%;
 }
 
 #muteMusicButton{
-
     font-size: 10px;
     height:3vh;
     width: 4vw;
@@ -326,24 +245,15 @@ footer {
     color: white;
     font-family: MECC;
     cursor: pointer;
-    border-radius: 5%;
-    float: right;
-    margin-right: 5.22vw;
-    margin-left: -9.22vw;
-    margin-top: 2vh;
-
+    margin-left: 20%
 }
 
 #aboutMeButton:hover {
-
     background-color: gray;
-
 }
 
 #gameResetButton:hover {
-
     background-color: gray;
-
 }
 
 .disableClick {
@@ -352,99 +262,108 @@ footer {
 
 .matched {
     pointer-events: none;
+    animation-name: spin;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes spin {
+    0% {
+        opacity: 0.9;
+        transform: rotate(0deg);
+    }
+
+    100%   {
+        transform: rotate(720deg);
+        opacity: 0.4;
+    }
+}
+
+.measlesText {
+    color: red;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
+}
+
+.exhaustionText {
+    color: purple;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
+}
+
+.typhoidText {
+    color: limegreen;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
+}
+
+.dysenteryText {
+    color: yellow;
+    font-size: 1.6vmin;
+    padding-top: 3vh;
 }
 
 .exhaustion{
-
     background-image: url(images/exhaustion.png);
-
 }
 
 .dysentery{
-
     background-image: url(images/dysentery.png);
-
 }
 
 .typhoid{
-
     background-image: url(images/typhoid.png);
-
 }
 
 .measles{
-
     background-image: url(images/measles.png);
-
 }
 
 .freshWater{
-
     background-image: url(images/freshWater.png);
-
 }
 
 .heartyFood{
-
     background-image: url(images/heartyFood.png);
-
 }
 
 .restStop{
-
     background-image: url(images/restStop.png);
 }
 
 .oxen{
-
     background-image: url(images/oxen.png);
-
 }
 
 .river{
-
     background-image: url(images/river.png);
-
-
 }
 
 .tree{
-
     background-image: url(images/tree.png);
-
 }
+
 .rifle{
-
     background-image: url(images/rifle.png);
-
 }
 
 .cactus{
-
     background-image: url(images/cactus.png);
-
 }
 
 .bovineSkull{
-
     background-image: url(images/bovineSkull.png);
-
 }
 
 .deer{
-
     background-image: url(images/deer.png);
-
 }
 
 .boulder{
-
     background-image: url(images/boulder.png);
-
 }
 
 .aboutModal {
-
     position: fixed;
     top: 50%;
     left: 50%;
@@ -463,9 +382,7 @@ footer {
 }
 
 .modalVisibility{
-
     display: block;
-
 }
 
 p {
@@ -476,7 +393,6 @@ p {
 }
 
 #closeModalButton{
-
     font-size: 1.9vw;
     font-family: MECC;
     margin-top: 15px;
@@ -484,13 +400,10 @@ p {
     background-color: black;
     padding: 2%;
     border-radius: 5px;
-
 }
 
 #closeModalButton:hover {
-
     background-color: gray;
-
 }
 
 a{
