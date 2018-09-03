@@ -66,7 +66,7 @@ function dealCards(cardData) {
                     "height": sizeAdjust.height,
                     "padding": sizeAdjust.padding,
                 })
-            $('<image src= ' + thisCardData.cardFace + ' width = 100% height = 100%>').appendTo(card)
+            $('<image src= ' + thisCardData.cardFront + ' width = 100% height = 100%>').appendTo(card)
             cardsToAppend.push(card);
         }
     }
