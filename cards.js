@@ -3,7 +3,7 @@ const cardTypes = {
     dysentery: {
         name: 'dysentery',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/dysentery.png',
         onFirstClick: function () {
             displayEffect('Your Stomach Hurts');
@@ -18,7 +18,7 @@ const cardTypes = {
     freshWater: {
         name: 'freshWater',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/freshWater.png',
         onFirstClick: function () {
             displayEffect('You See a Well In The Distance...');
@@ -32,7 +32,7 @@ const cardTypes = {
     oxen: {
         name: 'oxen',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/oxen.png',
         onFirstClick: function () {
             displayEffect();
@@ -42,7 +42,7 @@ const cardTypes = {
     tree: {
         name: 'tree',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/tree.png',
         onFirstClick: function () {
             displayEffect();
@@ -52,7 +52,7 @@ const cardTypes = {
     cactus: {
         name: 'cactus',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/cactus.png',
         onFirstClick: function () {
             displayEffect();
@@ -62,7 +62,7 @@ const cardTypes = {
     rifle: {
         name: 'rifle',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/rifle.png',
         onFirstClick: function () {
             displayEffect('You Spot A Wild Animal');
@@ -76,7 +76,7 @@ const cardTypes = {
     bovineSkull: {
         name: 'bovineSkull',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/bovineSkull.png',
         onFirstClick: function () {
             displayEffect();
@@ -86,7 +86,7 @@ const cardTypes = {
     deer: {
         name: 'deer',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/deer.png',
         onFirstClick: function () {
             displayEffect();
@@ -96,7 +96,7 @@ const cardTypes = {
     exhaustion: {
         name: 'exhaustion',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/exhaustion.png',
         onFirstClick: function () {
             displayEffect('You Are Tired');
@@ -111,7 +111,7 @@ const cardTypes = {
     boulder: {
         name: 'boulder',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/boulder.png',
         onFirstClick: function () {
             displayEffect();
@@ -121,7 +121,7 @@ const cardTypes = {
     restStop: {
         name: 'restStop',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/restStop.png',
         onFirstClick: function () {
             displayEffect('You See A Town In The Distance');
@@ -135,7 +135,7 @@ const cardTypes = {
     typhoid: {
         name: 'typhoid',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/typhoid.png',
         onFirstClick: function () {
             displayEffect('That Water Tasted Funny...');
@@ -150,7 +150,7 @@ const cardTypes = {
     measles: {
         name: 'measles',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/measles.png',
         onFirstClick: function () {
             displayEffect('You Dont Feel So Good');
@@ -165,7 +165,7 @@ const cardTypes = {
     river: {
         name: 'river',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/river.png',
         onFirstClick: function () {
             displayEffect();
@@ -175,7 +175,7 @@ const cardTypes = {
     heartyFood: {
         name: 'heartyFood',
         count: 2,
-        cardBack: 'images/cardBack.png',
+        cardBack: 'images/cardBacks.png',
         cardFront: 'images/heartyFood.png',
         onFirstClick: function () {
             displayEffect('You Look For Food...');
