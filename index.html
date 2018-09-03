@@ -24,22 +24,21 @@
             </div>
         <div id="gameContainer">
             <div id="leftSideBar">
-                <div id="totalWins">WINS : 0</div>
-                <div id="totalDeaths">DEATHS : 0</div>
+                    <div id="difficulty"> EASY</div>
+                <div id=level>LEVEL : 1</div>
+                <div id="lives">LIVES : 3</div>
                 <div id="score">SCORE : 0</div>
                 <div id="currentAilments"></div>
             </div>
-            <div id="leftImg"></div>
-            <div id="gameBody">
-                
-            </div>
-            <div id="rightImg"></div>
+            <image id="leftImg"  src= "images/oregonTrailLeftSideBarImage.png"></image>
+            <div id="gameBody"> </div>
+            <image id="rightImg" src="images/oregonTrailRightSideBarImage.png"></image>
             <div id="rightSideBar"></div>
         </div>
         <footer>
             <button id="aboutMeButton" onclick="openTheAboutModal()">About</button>
             <button id="gameResetButton" onclick="resetGame()">Reset Game</button>
-            <button id="muteMusicButton" onclick="muteMusic()">Stop Music</button>
+            <button id="muteMusicButton" onclick="toggleMusic()">Stop Music</button>
         </footer>
     </div>
     <div class="aboutModal" id="aboutModal">
