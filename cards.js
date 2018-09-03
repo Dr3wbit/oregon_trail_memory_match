@@ -24,8 +24,7 @@ const cardTypes = {
             displayEffect('You See a Well In The Distance...');
         },
         onMatch: function () {
-            shiftHealthIndicator(8);
-            
+            shiftHealthIndicator(8); 
             displayEffect('You Feel Hydrated From Fresh Water!');
         },
     },
@@ -56,7 +55,7 @@ const cardTypes = {
         cardBack: 'images/cardBack.png',
         cardFront: 'images/cactus.png',
         onFirstClick: function () {
-            displayEffect( );
+            displayEffect();
         },
     },
 
@@ -70,7 +69,6 @@ const cardTypes = {
         },
         onMatch: function () {
             shiftHealthIndicator(8);
-            
             displayEffect('You Gain Food From A Hunt!');
         },
     },
@@ -130,7 +128,6 @@ const cardTypes = {
         },
         onMatch: function () {
             shiftHealthIndicator(8);
-            
             displayEffect('You Feel Safe And Rested!');
         },
     },
@@ -185,7 +182,6 @@ const cardTypes = {
         },
         onMatch: function () {
             shiftHealthIndicator(8);
-            
             displayEffect('You Feel Full From A Hearty Meal!');
         },
     },
