@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <script src="cards.js"></script>
-    <script src="wip_oop_convertion.js"></script>
+    <script src="main.js"></script>
 </head>
 
 <body>
@@ -20,17 +20,17 @@
             <div id="wagonRight"></div>
         </header>
         <div id="mainTextDisplay">
-                <span id="mainText">Match The Cards!</span>
-            </div>
+            <span id="mainText">Match The Cards!</span>
+        </div>
         <div id="gameContainer">
             <div id="leftSideBar">
-                    <div id="difficulty"> EASY</div>
+                <div id="difficulty"> EASY</div>
                 <div id=level>LEVEL : 1</div>
                 <div id="lives">LIVES : 3</div>
                 <div id="score">SCORE : 0</div>
                 <div id="currentAilments"></div>
             </div>
-            <image id="leftImg"  src= "images/oregonTrailLeftSideBarImage.png"></image>
+            <image id="leftImg" src="images/oregonTrailLeftSideBarImage.png"></image>
             <div id="gameBody"> </div>
             <image id="rightImg" src="images/oregonTrailRightSideBarImage.png"></image>
             <div id="rightSideBar"></div>
@@ -42,15 +42,18 @@
         </footer>
     </div>
     <div class="aboutModal" id="aboutModal">
-        <h1>About</h1>
         <p>Welcome to my match memory tribute to the old classic game "The Oregon Trail". My name is Andrew Harrington and what
             you see here is a project that heavily utilized jQuery and OOP. I learned quite a bit from this project and I
             plan on adding more features soon. You can contact me
             <a href="#">HERE</a> for any questions.</p>
         <p>The concept of the game is to match cards within a certain amount of guesses. There are several matches that will
-            increase your timer. If you match all your cards before the timer runs out then you have made it to Oregon!</p>
-        <p>BEWARE! When you match a pair of "Ailment" cards, you will see your timer drop DRASTICALLY!!! </p>
+            increase your health. If you pass all three levels without losing all your lives you win!</p>
+        <p>BEWARE! When you match a pair of "Ailment" cards, you will see your health drop DRASTICALLY!!! </p>
         <button id="closeModalButton" onclick="closeTheModal()">Return To Game</button>
+    </div>
+    <div class="gameModal">
+        <p id="announcement"></p>
+        <button id="closeModalButton" onclick="closeTheModal(), resetGame()">Start New Game</button>
     </div>
 </body>
 
