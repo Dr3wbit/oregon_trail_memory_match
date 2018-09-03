@@ -125,7 +125,6 @@ header {
     display: inline-block;
 }
 
-
 #gameBody {
     width: 66vw;
     height: 100%;
@@ -273,66 +272,6 @@ footer {
     color: yellow;
     font-size: 1.6vmin;
     padding-top: 3vh;
-}
-
-.exhaustion{
-    background-image: url(images/exhaustion.png);
-}
-
-.dysentery{
-    background-image: url(images/dysentery.png);
-}
-
-.typhoid{
-    background-image: url(images/typhoid.png);
-}
-
-.measles{
-    background-image: url(images/measles.png);
-}
-
-.freshWater{
-    background-image: url(images/freshWater.png);
-}
-
-.heartyFood{
-    background-image: url(images/heartyFood.png);
-}
-
-.restStop{
-    background-image: url(images/restStop.png);
-}
-
-.oxen{
-    background-image: url(images/oxen.png);
-}
-
-.river{
-    background-image: url(images/river.png);
-}
-
-.tree{
-    background-image: url(images/tree.png);
-}
-
-.rifle{
-    background-image: url(images/rifle.png);
-}
-
-.cactus{
-    background-image: url(images/cactus.png);
-}
-
-.bovineSkull{
-    background-image: url(images/bovineSkull.png);
-}
-
-.deer{
-    background-image: url(images/deer.png);
-}
-
-.boulder{
-    background-image: url(images/boulder.png);
 }
 
 .aboutModal {
