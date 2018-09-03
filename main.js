@@ -66,7 +66,7 @@ function dealCards(cardData) {
                     "height": sizeAdjust.height,
                     "padding": sizeAdjust.padding,
                 })
-                .append($('<image src= '+thisCardData.cardBack+' data-src= '+thisCardData.cardBack+' width = 100% height = 100%>'))
+            $('<image src= ' + thisCardData.cardBack + ' width = 100% height = 100%>').appendTo(card)
             cardsToAppend.push(card);
         }
     }
@@ -168,7 +168,7 @@ function handleCardClick() {
         cardTypes[cardType].onFirstClick();
 
         cardClicksDisabled = false;
-    } 
+    }
     else if (cardMemory !== null && cardsCurrentlyFlipped === 2) {
         cardMemory.push(cardType, clickedCard);
         allCards.addClass('disableClick');
@@ -185,7 +185,7 @@ function handleCardClick() {
             score = score - 20;
         } else {
             cardTypes[cardType].onMatch();
-            $("[type='"+ cardMemory[0] +"']").addClass('matched');
+            $("[type='" + cardMemory[0] + "']").addClass('matched');
             cardMatchSound.play();
             cardMemory = null;
             cardsCurrentlyFlipped = 0;
@@ -263,7 +263,7 @@ function shiftHealthIndicator(life) {
 }
 
 function checkForDeath() {
-    if (winCondition >= cardsToUse / 2){
+    if (winCondition >= cardsToUse / 2) {
         return;
     }
     if ($('.depleted').length >= cardsToUse * 3) {
@@ -302,14 +302,14 @@ function winGame() {
     }
 }
 
-function findDifficulty(level){
-    if (level === 1){
+function findDifficulty(level) {
+    if (level === 1) {
         return "EASY"
     }
-    else if (level === 2){
+    else if (level === 2) {
         return "HARD"
     }
-    else if (level === 3){
+    else if (level === 3) {
         return "DIFFICULT"
     }
 }
@@ -347,7 +347,7 @@ async function prepareNextLevel() {
     initializeApplication();
 }
 
-function openGameModal(){
+function openGameModal() {
     $('.gameModal').addClass('modalVisibility');
     $('.card').addClass('disableClick')
 }
