@@ -3,7 +3,7 @@ const cardTypes = {
     dysentery: {
         name: 'dysentery',
         count: 2,
-        cardBack: awd = 'images/cardBack.png',
+        cardBack: 'images/cardBack.png',
         cardFront: 'images/dysentery.png',
         onFirstClick: function () {
             displayEffect('Your Stomach Hurts');
