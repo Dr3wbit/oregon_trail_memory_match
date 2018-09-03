@@ -66,7 +66,7 @@ function dealCards(cardData) {
                     "height": sizeAdjust.height,
                     "padding": sizeAdjust.padding,
                 })
-                .append($('<image src= '+thisCardData.cardBack+' width = 100% height = 100%>'))
+                .append($('<image src= '+thisCardData.cardBack+' data-src= '+thisCardData.cardBack+' width = 100% height = 100%>'))
             cardsToAppend.push(card);
         }
     }
