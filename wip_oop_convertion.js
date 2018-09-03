@@ -15,7 +15,7 @@ $(document).ready(initializeApplication);
 function cardShuffle(cards) {
     let currentIndex = cards.length, tempValue, randomNumber;
     while (0 !== currentIndex) {
-        randomNumber = Math.floor(Math.random() * (currentIndex + 1));
+        randomNumber = Math.floor(Math.random() * (currentIndex));
         currentIndex -= 1;
         tempValue = cards[currentIndex];
         cards[currentIndex] = cards[randomNumber];
@@ -314,7 +314,7 @@ function findDifficulty(level){
     }
 }
 
-function emptyMemory() {
+function emptyGameBoard() {
     $('#gameBody').empty();
     $('#rightSideBar').empty();
     $('#currentAilments').empty();
@@ -333,7 +333,7 @@ function resetGame() {
     $('#lives').text('Lives : 3');
     $('#difficulty').text('Easy');
     $('#mainText').text('Match The Cards!');
-    emptyMemory();
+    emptyGameBoard();
     initializeApplication();
 }
 
@@ -343,7 +343,7 @@ function sleepTime(time) {
 
 async function prepareNextLevel() {
     await sleepTime(1600);
-    emptyMemory();
+    emptyGameBoard();
     initializeApplication();
 }
 
