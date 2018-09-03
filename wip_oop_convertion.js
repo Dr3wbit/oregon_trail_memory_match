@@ -3,25 +3,25 @@ let cardMemory = null;
 let cardsCurrentlyFlipped = 0;
 let winCondition = 0;
 let timerBarDepletionCounter = -1;
-let totalWins = 0;
-let totalDeaths = 0;
+let lives = 3;
 let cardClicksDisabled = false;
 let score = 0;
+let level = 1;
+let cardsToUse = 0;
 
 
 $(document).ready(initializeApplication);
 
-Array.prototype.cardShuffle = function () {
-
-    let arrayValue = this.length;
-    let randomNumber;
-    let tempValue;
-    while (--arrayValue > 0) {
-        randomNumber = Math.floor(Math.random() * (arrayValue + 1));
-        tempValue = this[arrayValue];
-        this[arrayValue] = this[randomNumber];
-        this[randomNumber] = tempValue;
+function cardShuffle(cards) {
+    let currentIndex = cards.length, tempValue, randomNumber;
+    while (0 !== currentIndex) {
+        randomNumber = Math.floor(Math.random() * (currentIndex + 1));
+        currentIndex -= 1;
+        tempValue = cards[currentIndex];
+        cards[currentIndex] = cards[randomNumber];
+        cards[randomNumber] = tempValue;
     }
+    return cards;
 };
 
 const defaultMethods = {
@@ -35,7 +35,7 @@ const defaultMethods = {
 }
 
 function initializeApplication() {
-    let cards = dealCards(cardTypes);
+    let cards = dealCards(cardTypes, level);
     $('#gameBody').append(cards);
     let timerBar = createTimerBar(cards);
     $('#rightSideBar').append(timerBar);
@@ -43,6 +43,7 @@ function initializeApplication() {
 }
 
 function dealCards(cardData) {
+    let sizeAdjust = levelSizing(level);
     let card = null;
     let cardTypeArray = Object.keys(cardData);
     let cardsToAppend = [];
@@ -53,23 +54,75 @@ function dealCards(cardData) {
             card = $('<div>', {
                 class: "card",
                 type: cardTypeArray[i],
+                cardBack: cardData[cardTypeArray[i]].cardBack,
+                image: cardData[cardTypeArray[i]].image,
                 on: {
-                    click: handleCardClick,
+                    mousedown: handleCardClick,
                 }
-            });
+            })
+                .css({
+                    "margin": sizeAdjust.margin,
+                    "width": sizeAdjust.width,
+                    "height": sizeAdjust.height,
+                    "padding": sizeAdjust.padding,
+                })
+                .append($('<image width = 100% height = 100% src= ' + thisCardData.image + '>'))
             cardsToAppend.push(card);
-
         }
-
     }
-    cardsToAppend.cardShuffle();
-    return cardsToAppend;
+    cardsToAppend = levelAdjustment(cardsToAppend, level)
+    cardsToUse = (cardsToAppend.length);
+    let shuffledCards = cardShuffle(cardsToAppend);
+    return shuffledCards;
+}
+
+function levelSizing(level) {
+    let sizing = {};
+    if (level === 1) {
+        sizing = {
+            margin: '2%',
+            width: '12%',
+            height: '40%',
+            padding: '0% 1%',
+            lifeHeight: '3.32%',
+        };
+    }
+    else if (level === 2) {
+        sizing = {
+            margin: '.5%',
+            width: '9%',
+            height: '30%',
+            padding: '0% 2.2%',
+            lifeHeight: '1.84%',
+        };
+    }
+    else if (level === 3) {
+        sizing = {
+            margin: '.5%',
+            width: '9%',
+            height: '30%',
+            padding: '0% 0%',
+            lifeHeight: '1.11%',
+        };
+    }
+    return sizing
+}
+
+function levelAdjustment(cards, cardLevel) {
+    if (cardLevel === 2) {
+        cards = cards.slice(0, (cardLevel * 9));
+        return cards;
+    } else {
+        cards = cards.slice(0, (cardLevel * 10));
+        return cards;
+    }
 }
 
 function createTimerBar(cards) {
     let timerBar = [];
+    let barSize = levelSizing(level);
     for (let i = 0; i < (cards.length * 3); i++) {
-        timerBar.push($('<div class="timerBar">'));
+        timerBar.push($('<div class="timerBar">').css({ "height": barSize.lifeHeight }));
     }
     return timerBar;
 }
@@ -100,54 +153,53 @@ function handleCardClick() {
         return
     }
     cardClicksDisabled = true;
+    let allCards = $('.card');
     let clickedCard = $(clickedElement);
     let cardType = $(clickedCard).attr('type');
+    let cardFace = $(clickedCard).attr('image');
+    let cardBack = $(clickedCard).attr('cardBack');
     cardsCurrentlyFlipped++;
-    clickedCard.addClass(cardType).removeClass('card');
+    clickedCard.children().attr('src', cardFace);
+    clickedCard.addClass('disableClick');
     cardClickSound.play();
 
     if (cardMemory === null && cardsCurrentlyFlipped === 1) {
         cardMemory = [];
         cardMemory.push(cardType, clickedCard);
-        clickedCard.addClass('disableClick');
-        cardTypes[clickedCard.attr('type')].onFirstClick();
+        cardTypes[cardType].onFirstClick();
+
         cardClicksDisabled = false;
 
     } else if (cardMemory !== null && cardsCurrentlyFlipped === 2) {
-        cardTypes[clickedCard.attr('type')].onSecondClick();
-        cardMemory.push(cardType);
-        cardClicksDisabled = true;
-        cardMemory[1].removeClass('disableClick');
+        cardTypes[cardType].onSecondClick();
+        cardMemory.push(cardType, clickedCard);
 
         if (cardMemory[0] !== cardMemory[2]) {
-
+            allCards.addClass('disableClick');
             setTimeout(() => {
-                cardTypes[clickedCard.attr('type')].onMissmatch();
-                cardClicksDisabled = false;
+                cardTypes[cardType].onMissmatch();
                 noMatchSound.play();
-                let firstCard = cardMemory[0];
-                let secondCard = cardMemory[2];
-                $("[type='" + firstCard + "']").removeClass(firstCard).addClass('card');
-                $("[type='" + secondCard + "']").removeClass(secondCard).addClass('card');
+                cardMemory[1].children().attr('src', cardBack);
+                cardMemory[3].children().attr('src', cardBack);
                 cardMemory = null;
                 cardsCurrentlyFlipped = 0;
+                cardClicksDisabled = false;
             }, 800);
             score = score - 20;
         } else {
-            cardTypes[clickedCard.attr('type')].onMatch();
-            $("[type='" + cardMemory[0] + "']").addClass('matched');
-            $("[type='" + cardMemory[2] + "']").addClass('matched');
+            cardTypes[cardType].onMatch();
+            $("[type='"+ cardMemory[0] +"']").addClass('matched');
             cardMatchSound.play();
             cardMemory = null;
             cardsCurrentlyFlipped = 0;
-            score = score + 200;
+            score = score + 340;
             winCondition++;
             winGame();
             cardClicksDisabled = false;
         }
-    }
-    if (score <= 0) {
-        score = 0;
+        if (score <= 0) {
+            score = 0;
+        }
     }
     $('#score').text('SCORE : ' + score);
 }
@@ -165,6 +217,7 @@ function shiftHealthIndicator(life) {
     let maxLoop = life
     let counter = 0;
     let time = $('.timerBar');
+    let cards = $('.card');
     if (life <= 0) {
         let DamageCounter = timerBarDepletionCounter
         for (let i = 0; i > life; i--) {
@@ -173,6 +226,7 @@ function shiftHealthIndicator(life) {
         }
         (function delayLoop() {
             if (counter-- <= maxLoop) {
+                cards.removeClass('disableClick');
                 checkForDeath();
                 return;
             } else {
@@ -181,7 +235,7 @@ function shiftHealthIndicator(life) {
                     $(time[timerBarDepletionCounter]).removeClass('damage');
                     $(time[timerBarDepletionCounter]).addClass('depleted');
                     delayLoop();
-                }, 100)
+                }, 50)
             }
         })();
 
@@ -193,43 +247,74 @@ function shiftHealthIndicator(life) {
         }
         (function delayLoop() {
             if (counter++ >= maxLoop) {
-                checkForDeath();
+                cards.removeClass('disableClick');
                 return;
             } else {
                 setTimeout(() => {
                     if (timerBarDepletionCounter < 0) {
+                        cards.removeClass('disableClick');
                         return;
                     };
                     timerBarDepletionCounter--;
                     $(time[timerBarDepletionCounter + 1]).removeClass('healing');
                     $(time[timerBarDepletionCounter + 1]).removeClass('depleted');
                     delayLoop();
-                }, 100)
+                }, 50)
             }
         })();
     }
 }
 
 function checkForDeath() {
-    if ($('.depleted').length >= 90) {
-        $('#mainText').text('You Have Died...');
+
+    if (winCondition >= cardsToUse / 2){
+        return;
+    }
+    if ($('.depleted').length >= cardsToUse * 3) {
+        $('#mainText').text('A Member Of Your Party Has Died, Try Again');
         $('.card').addClass('disableClick');
-        totalDeaths++;
-        $('#totalDeaths').text('DEATHS : ' + totalDeaths);
+        lives--;
+        $('#lives').text('LIVES : ' + lives);
         ailmentSound.play();
+        if (lives <= 0) {
+            $('#mainText').text('Everyone In Your Party Has Died, You Lose...');
+            return;
+        }
+        prepareNextLevel();
     }
 }
 
 function winGame() {
-    if (winCondition === 15) {
+    let totalMatches = cardsToUse / 2;
+    if (winCondition === (totalMatches)) {
+        level++;
         winSound.play();
-        $('#mainText').text('You Made It to Oregon!');
-        totalWins++;
-        $('#totalWins').text('WINS : ' + totalWins);
+        if (level === 4) {
+            $('#mainText').text('You Have Made It to Oregon! You Win!');
+            return;
+        } else {
+            let difficulty = findDifficulty(level);
+            $('#mainText').text('Level ' + level + '! Match The Cards!');
+            $('#difficulty').text(difficulty);
+            $('#level').text('LEVEL : ' + level);
+            prepareNextLevel();
+        }
     }
 }
 
-function resetGame() {
+function findDifficulty(level){
+    if (level === 1){
+        return "EASY"
+    }
+    else if (level === 2){
+        return "HARD"
+    }
+    else if (level === 3){
+        return "DIFFICULT"
+    }
+}
+
+function emptyMemory() {
     $('#gameBody').empty();
     $('#rightSideBar').empty();
     $('#currentAilments').empty();
@@ -237,11 +322,29 @@ function resetGame() {
     cardMemory = null;
     timerBarDepletionCounter = -1;
     winCondition = 0;
-    score = 0;
-    $('#score').text('SCORE : 0');
-    $('#mainText').text('Match The Cards!');
-    initializeApplication();
+}
 
+function resetGame() {
+    score = 0;
+    level = 1;
+    lives = 3;
+    $('#level').text('LEVEL : 1');
+    $('#score').text('SCORE : 0');
+    $('#lives').text('Lives : 3');
+    $('#difficulty').text('Easy');
+    $('#mainText').text('Match The Cards!');
+    emptyMemory();
+    initializeApplication();
+}
+
+function sleepTime(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
+async function prepareNextLevel() {
+    await sleepTime(1600);
+    emptyMemory();
+    initializeApplication();
 }
 
 function openTheAboutModal() {
@@ -258,10 +361,10 @@ function closeTheModal() {
 }
 
 function toggleMusic() {
-    if (themeSong.paused){
+    if (themeSong.paused) {
         themeSong.play();
         $('#muteMusicButton').text('Stop Music');
-    }else{
+    } else {
         themeSong.pause();
         $('#muteMusicButton').text('Play Music');
     }
@@ -282,7 +385,7 @@ cardMatchSound.volume = .2;
 const themeSong = new Audio();
 themeSong.src = 'soundFX/main_song.mp3';
 themeSong.volume = .2;
-themeSong.autoplay = true;
+// themeSong.autoplay = true;
 
 const ailmentSound = new Audio();
 ailmentSound.src = 'soundFX/ailment.wav';

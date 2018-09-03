@@ -1,23 +1,10 @@
 const cardTypes = {
-
-    exhaustion: {
-        name: 'exhaustion',
-        count: 2,
-        image: 'exhaustion.png',
-        onFirstClick: function () {
-            displayEffect('You Are Tired');
-        },
-        onMatch: function () {
-            applyAilment('exhaustion');
-            shiftHealthIndicator(-16);
-            displayEffect('You Are Exhausted...');
-        },
-    },
     
     dysentery: {
         name: 'dysentery',
         count: 2,
-        image: 'dysentery.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/dysentery.png',
         onFirstClick: function () {
             displayEffect('Your Stomach Hurts');
         },
@@ -28,38 +15,11 @@ const cardTypes = {
         },
 },
     
-    typhoid: {
-        name: 'typhoid',
-        count: 2,
-        image: 'typhoid.png',
-        onFirstClick: function () {
-            displayEffect('That Water Tasted Funny...');
-        },
-        onMatch: function () {
-            applyAilment('typhoid');
-            shiftHealthIndicator(-16);
-            displayEffect('You Have Typhoid...');
-        },
-    },
-    
-    measles: {
-        name: 'measles',
-        count: 2,
-        image: 'measles.png',
-        onFirstClick: function () {
-            displayEffect('You Dont Feel So Good');
-        },
-        onMatch: function () {
-            applyAilment(' measles');
-            shiftHealthIndicator(-16);
-            displayEffect('You Have Measles...');
-        },
-    },
-    
     freshWater: {
         name: 'freshWater',
         count: 2,
-        image: 'freshWater.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/freshWater.png',
         onFirstClick: function () {
             displayEffect('You See a Well In The Distance...');
         },
@@ -70,50 +30,11 @@ const cardTypes = {
         },
     },
     
-    heartyFood: {
-        name: 'heartyFood',
-        count: 2,
-        image: 'heartyFood.png',
-        onFirstClick: function () {
-            displayEffect('You Look For Food...');
-        },
-        onMatch: function () {
-            shiftHealthIndicator(8);
-            
-            displayEffect('You Feel Full From A Hearty Meal!');
-        },
-    },
-    
-    restStop: {
-        name: 'restStop',
-        count: 2,
-        image: 'restStop.png',
-        onFirstClick: function () {
-            displayEffect('You See A Town In The Distance');
-        },
-        onMatch: function () {
-            shiftHealthIndicator(8);
-            
-            displayEffect('You Feel Safe And Rested!');
-        },
-    },
-    
     oxen: {
         name: 'oxen',
         count: 2,
-        image: 'oxen.png',
-        onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
-            displayEffect();
-        },
-    },
-    
-    river: {
-        name: 'river',
-        count: 2,
-        image: 'river.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/oxen.png',
         onFirstClick: function () {
             displayEffect();
         },
@@ -125,7 +46,8 @@ const cardTypes = {
     tree: {
         name: 'tree',
         count: 2,
-        image: 'tree.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/tree.png',
         onFirstClick: function () {
             displayEffect();
         },
@@ -134,10 +56,24 @@ const cardTypes = {
         },
     },
     
+    cactus: {
+        name: 'cactus',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/cactus.png',
+        onFirstClick: function () {
+            displayEffect( );
+        },
+        onMatch: function () {
+            displayEffect();
+        },
+    },
+
     rifle: {
         name: 'rifle',
         count: 2,
-        image: 'rifle.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/rifle.png',
         onFirstClick: function () {
             displayEffect('You Spot A Wild Animal');
         },
@@ -148,22 +84,11 @@ const cardTypes = {
         },
     },
     
-    cactus: {
-        name: 'cactus',
-        count: 2,
-        image: 'cactus.png',
-        onFirstClick: function () {
-            displayEffect( );
-        },
-        onMatch: function () {
-            displayEffect();
-        },
-    },
-    
     bovineSkull: {
         name: 'bovineSkull',
         count: 2,
-        image: 'bovineSkull.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/bovineSkull.png',
         onFirstClick: function () {
             displayEffect();
         },
@@ -175,7 +100,8 @@ const cardTypes = {
     deer: {
         name: 'deer',
         count: 2,
-        image: 'deer.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/deer.png',
         onFirstClick: function () {
             displayEffect();
         },
@@ -183,16 +109,105 @@ const cardTypes = {
             displayEffect();
         },
     },
+
+    exhaustion: {
+        name: 'exhaustion',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/exhaustion.png',
+        onFirstClick: function () {
+            displayEffect('You Are Tired');
+        },
+        onMatch: function () {
+            applyAilment('exhaustion');
+            shiftHealthIndicator(-16);
+            displayEffect('You Are Exhausted...');
+        },
+    },
     
     boulder: {
         name: 'boulder',
         count: 2,
-        image: 'boulder.png',
+        cardBack: '/images/cardBack.png',
+        image: '/images/boulder.png',
         onFirstClick: function () {
             displayEffect();
         },
         onMatch: function () {
             displayEffect();
+        },
+    },
+
+    restStop: {
+        name: 'restStop',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/restStop.png',
+        onFirstClick: function () {
+            displayEffect('You See A Town In The Distance');
+        },
+        onMatch: function () {
+            shiftHealthIndicator(8);
+            
+            displayEffect('You Feel Safe And Rested!');
+        },
+    },
+
+    typhoid: {
+        name: 'typhoid',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/typhoid.png',
+        onFirstClick: function () {
+            displayEffect('That Water Tasted Funny...');
+        },
+        onMatch: function () {
+            applyAilment('typhoid');
+            shiftHealthIndicator(-16);
+            displayEffect('You Have Typhoid...');
+        },
+    },
+
+    measles: {
+        name: 'measles',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/measles.png',
+        onFirstClick: function () {
+            displayEffect('You Dont Feel So Good');
+        },
+        onMatch: function () {
+            applyAilment(' measles');
+            shiftHealthIndicator(-16);
+            displayEffect('You Have Measles...');
+        },
+    },
+
+    river: {
+        name: 'river',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/river.png',
+        onFirstClick: function () {
+            displayEffect();
+        },
+        onMatch: function () {
+            displayEffect();
+        },
+    },
+
+    heartyFood: {
+        name: 'heartyFood',
+        count: 2,
+        cardBack: '/images/cardBack.png',
+        image: '/images/heartyFood.png',
+        onFirstClick: function () {
+            displayEffect('You Look For Food...');
+        },
+        onMatch: function () {
+            shiftHealthIndicator(8);
+            
+            displayEffect('You Feel Full From A Hearty Meal!');
         },
     },
 }
