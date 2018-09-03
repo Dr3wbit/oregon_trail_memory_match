@@ -1,293 +1,398 @@
-var cardClickSound = new Audio();
-cardClickSound.src = 'soundFX/card_clicked.wav';
-cardClickSound.volume = 0.1;
 
-var noMatchSound = new Audio();
-noMatchSound.src = 'soundFX/no_match.wav';
-noMatchSound.volume = .5;
+let cardMemory = null;
+let cardsCurrentlyFlipped = 0;
+let winCondition = 0;
+let healthDepletionCounter = -1;
+let lives = 3;
+let cardClicksDisabled = false;
+let score = 0;
+let level = 1;
+let cardsToUse = 0;
 
-var cardMatchSound = new Audio();
-cardMatchSound.src = 'soundFX/match-made.wav';
-cardMatchSound.volume = .2;
+$(document).ready(initializeApplication);
 
-var themeSong = new Audio();
-themeSong.src = 'soundFX/main_song.mp3';
-themeSong.volume = .2;
-themeSong.onpause = function(){
-    this.play();
+function cardShuffle(cards) {
+    let currentIndex = cards.length, tempValue, randomNumber;
+    while (0 !== currentIndex) {
+        randomNumber = Math.floor(Math.random() * (currentIndex));
+        currentIndex -= 1;
+        tempValue = cards[currentIndex];
+        cards[currentIndex] = cards[randomNumber];
+        cards[randomNumber] = tempValue;
+    }
+    return cards;
 };
 
-var ailmentSound = new Audio();
-ailmentSound.src = 'soundFX/ailment.wav';
-
-var winSound = new Audio();
-winSound.src = 'soundFX/win_sound.wav';
-winSound.volume = .2;
-
-var cardTypeArray = ['exhaustion','exhaustion','dysentery','dysentery','typhoid','typhoid','measles','measles','freshWater','freshWater','heartyFood','heartyFood','restStop','restStop','oxen','oxen','river','river','tree','tree','rifle','rifle','cactus','cactus','bovineSkull','bovineSkull','deer','deer','boulder','boulder'];
-var cardMemory = null;
-var cardsCurrentlyFlipped = 0;
-var winCondition = 0;
-var timerBarDepletionCounter = -1;
-var totalWins = 0;
-var totalDeaths = 0;
-
-
-$(document).ready(dealCards);
-
-Array.prototype.cardShuffle = function () {
-
-    var arrayValue = this.length;
-    var randomNumber;
-    var tempValue;
-    while (--arrayValue > 0) {
-        randomNumber = Math.floor(Math.random() * (arrayValue + 1));
-        tempValue = this[arrayValue];
-        this[arrayValue] = this[randomNumber];
-        this[randomNumber] = tempValue;
-    }
-};
-
-function dealCards() {
-    console.log('Dealing Cards ...');
-    var card = null;
-    var timerBar = null;
-    cardTypeArray.cardShuffle();
-    for (i = 0; i < cardTypeArray.length; i++) {
-        card = ($('<div>', {
-            class: "card",
-            type: cardTypeArray[i],
-            onclick: 'revealCardFace(this)'
-        }));
-
-        $('#gameBody').append(card);
-    }
-    for (i = 0; i < (cardTypeArray.length * 3); i++) {
-        timerBar = $('<div class="timerBar">');
-        $('#rightSideBar').append(timerBar);
-    }
-    themeSong.play();
+const defaultMethods = {
+    onClick: () => { },
+    onMatch: () => {
+        shiftHealthIndicator(1)
+    },
+    onMissmatch: () => {
+        shiftHealthIndicator(-3);
+    },
+    onFirstClick: () => { },
 }
 
-function revealCardFace(clickInput) {
-    var clickedCard = $(clickInput);
-    var cardType = $(clickInput).attr('type');
-    var Ailment = null;
-    cardsCurrentlyFlipped++;
-    clickedCard.addClass(cardType).removeClass('card');
-    cardClickSound.play();
-    var time = $('.timerBar');
-    var i = 0;
+function initializeApplication() {
+    let cards = dealCards(cardTypes, level);
+    $('#gameBody').append(cards);
+    let healthBar = createhealthBar(cards);
+    $('#rightSideBar').append(healthBar);
+    applyDefaultsToAllCardData(cardTypes, defaultMethods);
+}
 
+function dealCards(cardData) {
+    let sizeAdjust = levelSizing(level);
+    let card = null;
+    let cardTypeArray = Object.keys(cardData);
+    let cardsToAppend = [];
+    for (let i = 0; i < cardTypeArray.length; i++) {
+        let thisCardName = cardTypeArray[i];
+        let thisCardData = cardData[thisCardName];
+        for (let cardCount = 0; cardCount < thisCardData.count; cardCount++) {
+            card = $('<div>', {
+                class: "card",
+                type: cardTypeArray[i],
+                cardBack: cardData[cardTypeArray[i]].cardBack,
+                cardFront: cardData[cardTypeArray[i]].cardFront,
+                on: {
+                    mousedown: handleCardClick,
+                }
+            })
+                .css({
+                    "margin": sizeAdjust.margin,
+                    "width": sizeAdjust.width,
+                    "height": sizeAdjust.height,
+                    "padding": sizeAdjust.padding,
+                })
+                .append($('<image width = 100% height = 100% src= ' + thisCardData.cardBack + '>'))
+            cardsToAppend.push(card);
+        }
+    }
+    cardsToAppend = levelAdjustment(cardsToAppend, level)
+    cardsToUse = (cardsToAppend.length);
+    let shuffledCards = cardShuffle(cardsToAppend);
+    return shuffledCards;
+}
+
+function levelSizing(level) {
+    let sizing = {};
+    if (level === 1) {
+        sizing = {
+            margin: '2%',
+            width: '12%',
+            height: '40%',
+            padding: '0% 1%',
+            lifeHeight: '3.32%',
+        };
+    }
+    else if (level === 2) {
+        sizing = {
+            margin: '.5%',
+            width: '9%',
+            height: '30%',
+            padding: '0% 2.2%',
+            lifeHeight: '1.84%',
+        };
+    }
+    else if (level === 3) {
+        sizing = {
+            margin: '.5%',
+            width: '9%',
+            height: '30%',
+            padding: '0% 0%',
+            lifeHeight: '1.11%',
+        };
+    }
+    return sizing
+}
+
+function levelAdjustment(cards, cardLevel) {
+    if (cardLevel === 2) {
+        cards = cards.slice(0, (cardLevel * 9));
+        return cards;
+    } else {
+        cards = cards.slice(0, (cardLevel * 10));
+        return cards;
+    }
+}
+
+function createhealthBar(cards) {
+    let healthBar = [];
+    let barSize = levelSizing(level);
+    for (let i = 0; i < (cards.length * 3); i++) {
+        healthBar.push($('<div class="healthBar">').css({ "height": barSize.lifeHeight }));
+    }
+    return healthBar;
+}
+
+function applyDefaultsToAllCardData(data, defaults) {
+    for (var key in data) {
+        applyDefaultsToObjects(data[key], defaults);
+    }
+}
+function applyDefaultsToObjects(object, defaultValues) {
+    for (var key in defaultValues) {
+        if (object[key] === undefined) {
+            object[key] = defaultValues[key];
+        }
+    }
+}
+
+function displayEffect(message) {
+    if (!message) {
+        message = 'Match The Cards!'
+    }
+    $('#mainText').text(message);
+}
+
+function handleCardClick() {
+    let clickedElement = this;
+    if (cardClicksDisabled) {
+        return
+    }
+    cardClicksDisabled = true;
+    let allCards = $('.card');
+    let clickedCard = $(clickedElement);
+    let cardType = $(clickedCard).attr('type');
+    let cardFace = $(clickedCard).attr('cardFront');
+    let cardBack = $(clickedCard).attr('cardBack');
+    cardsCurrentlyFlipped++;
+    clickedCard.children().attr('src', cardFace);
+    clickedCard.addClass('disableClick');
+    cardClickSound.play();
     if (cardMemory === null && cardsCurrentlyFlipped === 1) {
         cardMemory = [];
-        cardMemory.push(cardType);
-        console.log('First card ' + cardType + ' was added to memory.');
-        clickedCard.addClass('disableClick');
+        cardMemory.push(cardType, clickedCard);
+        cardTypes[cardType].onFirstClick();
 
-    }else if (cardMemory !== null && cardsCurrentlyFlipped === 2) {
-        console.log('Second card ' + cardType + ' was added to memory.');
-        cardMemory.push(cardType);
-
-        if(cardMemory[0] !== cardMemory[1]){
-            console.log('No Match: ' + cardMemory[0] + ' !== ' +cardMemory[1]);
-            $('.card').addClass('disableClick');
-            setTimeout (function() {
+        cardClicksDisabled = false;
+    } 
+    else if (cardMemory !== null && cardsCurrentlyFlipped === 2) {
+        cardMemory.push(cardType, clickedCard);
+        allCards.addClass('disableClick');
+        if (cardMemory[0] !== cardMemory[2]) {
+            setTimeout(() => {
+                cardTypes[cardType].onMissmatch();
                 noMatchSound.play();
-                $('.card').removeClass('disableClick');
-                var firstCard = cardMemory[0];
-                var secondCard = cardMemory[1];
-                $("[type='" + firstCard + "']").removeClass('disableClick exhaustion dysentery typhoid measles freshWater heartyFood restStop oxen river tree rifle cactus bovineSkull deer boulder').addClass('card');
-                $("[type='" + secondCard + "']").removeClass('disableClick exhaustion dysentery typhoid measles freshWater heartyFood restStop oxen river tree rifle cactus bovineSkull deer boulder').addClass('card');
+                cardMemory[1].children().attr('src', cardBack);
+                cardMemory[3].children().attr('src', cardBack);
                 cardMemory = null;
                 cardsCurrentlyFlipped = 0;
-                for(i=0;i<2;i++) {
-                    timerBarDepletionCounter++;
-                    $(time[timerBarDepletionCounter]).addClass('depleted');
-                }
-                $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
+                cardClicksDisabled = false;
             }, 800);
-        }
-
-        else if (cardMemory[0] === cardMemory[1]) {
-            console.log('Match: ' + cardMemory[0] + ' === ' +cardMemory[1]);
-            $("[type='" + cardMemory[0] + "']").addClass('disableClick');
-            $("[type='" + cardMemory[1] + "']").addClass('disableClick');
-
-            if (cardMemory[0] === "exhaustion" && cardMemory[1] === "exhaustion"){
-                Ailment = $('<div class="exhaustionText">');
-                $('#currentAilments').append(Ailment);
-                Ailment.text('Exhausted');
-                $('#mainText').text('You Are Exhausted...');
-                ailmentSound.play();
-                for(i=0;i<15;i++) {
-                    (function(i) {
-                        setTimeout(function () {
-                            timerBarDepletionCounter++;
-                            $(time[timerBarDepletionCounter]).addClass('depleted');
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0]  === "dysentery" && cardMemory[1] === "dysentery"){
-                Ailment = $('<div class="dysenteryText">');
-                $('#currentAilments').append(Ailment);
-                Ailment.text('Dysentery');
-                $('#mainText').text('You Have Dysentery...');
-                ailmentSound.play();
-                for(i=0;i<15;i++) {
-                    (function(i) {
-                        setTimeout(function () {
-                            timerBarDepletionCounter++;
-                            $(time[timerBarDepletionCounter]).addClass('depleted');
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0] === "typhoid" && cardMemory[1] === "typhoid"){
-                Ailment = $('<div class="typhoidText">');
-                $('#currentAilments').append(Ailment);
-                Ailment.text('Typhoid');
-                $('#mainText').text('You Have Typhoid...');
-                ailmentSound.play();
-                for(i=0;i<15;i++) {
-                    (function(i) {
-                        setTimeout(function () {
-                            timerBarDepletionCounter++;
-                            $(time[timerBarDepletionCounter]).addClass('depleted');
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0] === "measles" && cardMemory[1] === "measles"){
-                Ailment = $('<div class="measlesText">');
-                $('#currentAilments').append(Ailment);
-                Ailment.text('Measles');
-                $('#mainText').text('You Have Measles...');
-                ailmentSound.play();
-                for(i=0;i<15;i++) {
-                    (function(i) {
-                        setTimeout(function () {
-                            timerBarDepletionCounter++;
-                            $(time[timerBarDepletionCounter]).addClass('depleted');
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0] === "freshWater" && cardMemory[1] === "freshWater"){
-                $('#mainText').text('You Feel Hydrated!');
-                cardMatchSound.play();
-                for(i=0;i<8;i++) {
-                    (function (i) {
-                        setTimeout(function () {
-                            $(time[timerBarDepletionCounter]).removeClass('depleted');
-                            timerBarDepletionCounter--;
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0] === "heartyFood" && cardMemory[1] === "heartyFood"){
-                $('#mainText').text('You Feel Full!');
-                cardMatchSound.play();
-                for(i=0;i<8;i++) {
-                    (function (i) {
-                        setTimeout(function () {
-                            $(time[timerBarDepletionCounter]).removeClass('depleted');
-                            timerBarDepletionCounter--;
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0] === "restStop" && cardMemory[1] === "restStop"){
-                $('#mainText').text('You Feel Rested!');
-                cardMatchSound.play();
-                for(i=0;i<8;i++) {
-                    (function (i) {
-                        setTimeout(function () {
-                            $(time[timerBarDepletionCounter]).removeClass('depleted');
-                            timerBarDepletionCounter--;
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
-            else if(cardMemory[0] === "rifle" && cardMemory[1] === "rifle"){
-                $('#mainText').text('You Gain Food From Your Hunt!');
-                cardMatchSound.play();
-                for(i=0;i<8;i++) {
-                    (function (i) {
-                        setTimeout(function () {
-                            $(time[timerBarDepletionCounter]).removeClass('depleted');
-                            timerBarDepletionCounter--;
-                        }, 300*i);
-                    })(i);
-                }
-            }
-
+            score = score - 20;
+        } else {
+            cardTypes[cardType].onMatch();
+            $("[type='"+ cardMemory[0] +"']").addClass('matched');
             cardMatchSound.play();
             cardMemory = null;
             cardsCurrentlyFlipped = 0;
+            score = score + 340;
             winCondition++;
             winGame();
+            cardClicksDisabled = false;
+        }
+        if (score <= 0) {
+            score = 0;
         }
     }
+    $('#score').text('SCORE : ' + score);
+}
 
-    if ($('.depleted').length >= cardTypeArray.length * 3) {
-        console.log('You Lose');
-        $('#mainText').text('You Have Died...');
-        $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
+function applyAilment(ailment) {
+    ailmentSound.play();
+    let AilmentToAppend = $('<div>', {
+        class: ailment + 'Text',
+        text: ailment.toUpperCase(),
+    });
+    $('#currentAilments').append(AilmentToAppend);
+};
+
+function shiftHealthIndicator(life) {
+    let maxLoop = life
+    let counter = 0;
+    let health = $('.healthBar');
+    let cards = $('.card');
+    if (life <= 0) {
+        let DamageCounter = healthDepletionCounter
+        for (let i = 0; i > life; i--) {
+            DamageCounter++
+            $(health[DamageCounter]).addClass('damage');
+        }
+        (function delayLoop() {
+            if (counter-- <= maxLoop) {
+                cards.removeClass('disableClick');
+                checkForDeath();
+                return;
+            } else {
+                setTimeout(() => {
+                    healthDepletionCounter++;
+                    $(health[healthDepletionCounter]).removeClass('damage');
+                    $(health[healthDepletionCounter]).addClass('depleted');
+                    delayLoop();
+                }, 50)
+            }
+        })();
+
+    } else {
+        let HealingCounter = healthDepletionCounter
+        for (let i = 0; i < life; i++) {
+            HealingCounter--
+            $(health[HealingCounter + 1]).addClass('healing');
+        }
+        (function delayLoop() {
+            if (counter++ >= maxLoop) {
+                cards.removeClass('disableClick');
+                return;
+            } else {
+                setTimeout(() => {
+                    if (healthDepletionCounter < 0) {
+                        cards.removeClass('disableClick');
+                        return;
+                    };
+                    healthDepletionCounter--;
+                    $(health[healthDepletionCounter + 1]).removeClass('healing');
+                    $(health[healthDepletionCounter + 1]).removeClass('depleted');
+                    delayLoop();
+                }, 50)
+            }
+        })();
+    }
+}
+
+function checkForDeath() {
+    if (winCondition >= cardsToUse / 2){
+        return;
+    }
+    if ($('.depleted').length >= cardsToUse * 3) {
+        $('#mainText').text('A Member Of Your Party Has Died, Try Again');
         $('.card').addClass('disableClick');
-        totalDeaths++;
-        $('#totalDeaths').text('DEATHS : ' + totalDeaths);
+        lives--;
+        $('#lives').text('LIVES : ' + lives);
         ailmentSound.play();
+        if (lives <= 0) {
+            $('#mainText').text('Everyone In Your Party Has Died, You Lose...');
+            $('#announcement').text('You Lose!')
+            openGameModal();
+            return;
+        }
+        prepareNextLevel();
     }
 }
 
-function winGame(){
-    if(winCondition === 15){
-        console.log('You Win');
+function winGame() {
+    let totalMatches = cardsToUse / 2;
+    if (winCondition === (totalMatches)) {
+        level++;
         winSound.play();
-        $('#mainText').text('You Made It to Oregon!');
-        totalWins++;
-        $('#totalWins').text('WINS : ' + totalWins);
-        $('#score').text('SCORE : ' + (9000 - $('.depleted').length * 100));
+        if (level === 4) {
+            $('#mainText').text('You Have Made It to Oregon! You Win!');
+            $('#announcement').text('Congragulations! You Win!')
+            openGameModal();
+            return;
+        } else {
+            let difficulty = findDifficulty(level);
+            $('#mainText').text('Level ' + level + '! Match The Cards!');
+            $('#difficulty').text(difficulty);
+            $('#level').text('LEVEL : ' + level);
+            prepareNextLevel();
+        }
     }
 }
 
-function resetGame(){
+function findDifficulty(level){
+    if (level === 1){
+        return "EASY"
+    }
+    else if (level === 2){
+        return "HARD"
+    }
+    else if (level === 3){
+        return "DIFFICULT"
+    }
+}
+
+function emptyGameBoard() {
     $('#gameBody').empty();
     $('#rightSideBar').empty();
     $('#currentAilments').empty();
     cardsCurrentlyFlipped = 0;
     cardMemory = null;
-    timerBarDepletionCounter = -1;
+    healthDepletionCounter = -1;
     winCondition = 0;
-    $('#mainText').text('Match The Cards!');
-    dealCards();
-
 }
 
-function openTheAboutModal(){
-    var aboutMeModal = $('.aboutModal');
-    var openModal = $('#aboutMeButton');
-    aboutMeModal.addClass('modalVisibility');
-    $('.card').addClass('disableClick')
+function resetGame() {
+    score = 0;
+    level = 1;
+    lives = 3;
+    $('#level').text('LEVEL : 1');
+    $('#score').text('SCORE : 0');
+    $('#lives').text('LIVES : 3');
+    $('#difficulty').text('EASY');
+    $('#mainText').text('Match The Cards!');
+    emptyGameBoard();
+    initializeApplication();
+}
 
+function sleepTime(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
+async function prepareNextLevel() {
+    await sleepTime(2000);
+    emptyGameBoard();
+    initializeApplication();
+}
+
+function openGameModal(){
+    $('.gameModal').addClass('modalVisibility');
+    $('.card').addClass('disableClick')
+}
+
+function openTheAboutModal() {
+    $('.aboutModal').addClass('modalVisibility');
+    $('.card').addClass('disableClick')
 }
 
 function closeTheModal() {
-    var aboutMeModal = $('.aboutModal');
-    var closeModal = $('#closeModalButton');
-    aboutMeModal.removeClass('modalVisibility');
+    $('.aboutModal').removeClass('modalVisibility');
+    $('.gameModal').removeClass('modalVisibility');
     $('.card').removeClass('disableClick');
 }
 
-function muteMusic() {
-    themeSong.muted = true;
+function toggleMusic() {
+    if (themeSong.paused) {
+        themeSong.play();
+        $('#muteMusicButton').text('Stop Music');
+    } else {
+        themeSong.pause();
+        $('#muteMusicButton').text('Play Music');
+    }
 }
+
+const cardClickSound = new Audio();
+cardClickSound.src = 'soundFX/card_clicked.wav';
+cardClickSound.volume = 0.1;
+
+const noMatchSound = new Audio();
+noMatchSound.src = 'soundFX/no_match.wav';
+noMatchSound.volume = .5;
+
+const cardMatchSound = new Audio();
+cardMatchSound.src = 'soundFX/match-made.wav';
+cardMatchSound.volume = .2;
+
+const themeSong = new Audio();
+themeSong.src = 'soundFX/main_song.mp3';
+themeSong.volume = .2;
+themeSong.autoplay = true;
+
+const ailmentSound = new Audio();
+ailmentSound.src = 'soundFX/ailment.wav';
+
+const winSound = new Audio();
+winSound.src = 'soundFX/win_sound.wav';
+winSound.volume = .2;

@@ -4,7 +4,7 @@ const cardTypes = {
         name: 'dysentery',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/dysentery.png',
+        cardFront: '/images/dysentery.png',
         onFirstClick: function () {
             displayEffect('Your Stomach Hurts');
         },
@@ -19,7 +19,7 @@ const cardTypes = {
         name: 'freshWater',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/freshWater.png',
+        cardFront: '/images/freshWater.png',
         onFirstClick: function () {
             displayEffect('You See a Well In The Distance...');
         },
@@ -34,11 +34,8 @@ const cardTypes = {
         name: 'oxen',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/oxen.png',
+        cardFront: '/images/oxen.png',
         onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
             displayEffect();
         },
     },
@@ -47,11 +44,8 @@ const cardTypes = {
         name: 'tree',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/tree.png',
+        cardFront: '/images/tree.png',
         onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
             displayEffect();
         },
     },
@@ -60,12 +54,9 @@ const cardTypes = {
         name: 'cactus',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/cactus.png',
+        cardFront: '/images/cactus.png',
         onFirstClick: function () {
             displayEffect( );
-        },
-        onMatch: function () {
-            displayEffect();
         },
     },
 
@@ -73,7 +64,7 @@ const cardTypes = {
         name: 'rifle',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/rifle.png',
+        cardFront: '/images/rifle.png',
         onFirstClick: function () {
             displayEffect('You Spot A Wild Animal');
         },
@@ -88,11 +79,8 @@ const cardTypes = {
         name: 'bovineSkull',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/bovineSkull.png',
+        cardFront: '/images/bovineSkull.png',
         onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
             displayEffect();
         },
     },
@@ -101,11 +89,8 @@ const cardTypes = {
         name: 'deer',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/deer.png',
+        cardFront: '/images/deer.png',
         onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
             displayEffect();
         },
     },
@@ -114,7 +99,7 @@ const cardTypes = {
         name: 'exhaustion',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/exhaustion.png',
+        cardFront: '/images/exhaustion.png',
         onFirstClick: function () {
             displayEffect('You Are Tired');
         },
@@ -129,11 +114,8 @@ const cardTypes = {
         name: 'boulder',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/boulder.png',
+        cardFront: '/images/boulder.png',
         onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
             displayEffect();
         },
     },
@@ -142,7 +124,7 @@ const cardTypes = {
         name: 'restStop',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/restStop.png',
+        cardFront: '/images/restStop.png',
         onFirstClick: function () {
             displayEffect('You See A Town In The Distance');
         },
@@ -157,7 +139,7 @@ const cardTypes = {
         name: 'typhoid',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/typhoid.png',
+        cardFront: '/images/typhoid.png',
         onFirstClick: function () {
             displayEffect('That Water Tasted Funny...');
         },
@@ -172,7 +154,7 @@ const cardTypes = {
         name: 'measles',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/measles.png',
+        cardFront: '/images/measles.png',
         onFirstClick: function () {
             displayEffect('You Dont Feel So Good');
         },
@@ -187,11 +169,8 @@ const cardTypes = {
         name: 'river',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/river.png',
+        cardFront: '/images/river.png',
         onFirstClick: function () {
-            displayEffect();
-        },
-        onMatch: function () {
             displayEffect();
         },
     },
@@ -200,7 +179,7 @@ const cardTypes = {
         name: 'heartyFood',
         count: 2,
         cardBack: '/images/cardBack.png',
-        image: '/images/heartyFood.png',
+        cardFront: '/images/heartyFood.png',
         onFirstClick: function () {
             displayEffect('You Look For Food...');
         },

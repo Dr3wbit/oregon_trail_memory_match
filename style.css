@@ -151,7 +151,7 @@ header {
     vertical-align: top;
 }
 
-.timerBar {
+.healthBar {
     width: 5vw;
     background-color: chartreuse;
     display: block;
@@ -159,17 +159,17 @@ header {
     text-align: center;
 }
 
-.timerBar.depleted {
+.healthBar.depleted {
     background-color: grey;
     width: 4vw;
     margin-left: 5.5vw;
 }
 
-.timerBar.damage {
+.healthBar.damage {
     background-color: red;
 }
 
-.timerBar.healing {
+.healthBar.healing {
     background-color: aqua;
 }
 
@@ -349,19 +349,44 @@ footer {
     color: black;
     font-family: cursive;
     text-align: center;
-    padding-top: 14vh;
+    margin-top: 7%;
+    padding-top: 6%;
+}
 
+.gameModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45%;
+    height: 90%;
+    background-image: url(images/parchment.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: none;
+    color: black;
+    font-family: cursive;
+    text-align: center;
+    margin-top: 15%;
+    padding-top: 6%;
+}
+
+.gameModal> p {
+    font-size: 4vw;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 15px;
 }
 
 .modalVisibility{
     display: block;
 }
 
-p {
+.aboutModal> p {
     font-size: 1.35vw;
-    padding-left: 60px;
-    padding-right: 60px;
-    padding-top: 15px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
 }
 
 #closeModalButton{
