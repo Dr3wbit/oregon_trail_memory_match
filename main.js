@@ -41,6 +41,7 @@ function initializeApplication() {
     let healthBar = createhealthBar(cards);
     $('#rightSideBar').append(healthBar);
     applyDefaultsToAllCardData(cardTypes, defaultMethods);
+    themeSong.play();
 }
 
 function dealCards(cardData) {
