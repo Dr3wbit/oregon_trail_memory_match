@@ -1,7 +1,8 @@
 
 let cardMemory = null;
 let cardsCurrentlyFlipped = 0;
-let winCondition = 0;
+let matchCounter = 0;
+let missmatchCounter = 0;
 let healthDepletionCounter = -1;
 let lives = 3;
 let cardClicksDisabled = false;
@@ -182,7 +183,12 @@ function handleCardClick() {
                 cardsCurrentlyFlipped = 0;
                 cardClicksDisabled = false;
             }, 800);
+            missmatchCounter++
             score = score - 20;
+            if (score <= 0) {
+                missmatchCounter = 0;
+                score = 0;
+            }
         } else {
             cardTypes[cardType].onMatch();
             $("[type='" + cardMemory[0] + "']").addClass('matched');
@@ -190,12 +196,9 @@ function handleCardClick() {
             cardMemory = null;
             cardsCurrentlyFlipped = 0;
             score = score + 340;
-            winCondition++;
+            matchCounter++;
             winGame();
             cardClicksDisabled = false;
-        }
-        if (score <= 0) {
-            score = 0;
         }
     }
     $('#score').text('SCORE : ' + score);
@@ -263,10 +266,12 @@ function shiftHealthIndicator(life) {
 }
 
 function checkForDeath() {
-    if (winCondition >= cardsToUse / 2) {
+    if (matchCounter >= cardsToUse / 2) {
         return;
     }
     if ($('.depleted').length >= cardsToUse * 3) {
+        score = score - (340 * matchCounter) + (missmatchCounter * 20);
+        $('#score').text('SCORE : ' + score);
         $('#mainText').text('A Member Of Your Party Has Died, Try Again');
         $('.card').addClass('disableClick');
         lives--;
@@ -284,12 +289,12 @@ function checkForDeath() {
 
 function winGame() {
     let totalMatches = cardsToUse / 2;
-    if (winCondition === (totalMatches)) {
+    if (matchCounter === (totalMatches)) {
         level++;
         winSound.play();
         if (level === 4) {
             $('#mainText').text('You Have Made It to Oregon! You Win!');
-            $('#announcement').text('Congragulations! You Win!')
+            $('#announcement').text('Congratulations! You Have Made It to Oregon! You Win!')
             openGameModal();
             return;
         } else {
@@ -321,7 +326,8 @@ function emptyGameBoard() {
     cardsCurrentlyFlipped = 0;
     cardMemory = null;
     healthDepletionCounter = -1;
-    winCondition = 0;
+    matchCounter = 0;
+    missmatchCounter = 0;
 }
 
 function resetGame() {

@@ -185,45 +185,19 @@ footer {
     transform: scale(1.1);
 }
 
-#gameResetButton{
-    font-size: 10px;
+.footerButton{
+    font-size: 1.5vmin;
     height:3vh;
     width: 4vw;
     background-color: #202020;
     color: white;
     font-family: MECC;
     cursor: pointer;
-    margin-right: 19%;
-    margin-left: 19%;
+    margin-left: 13%;
+    margin-right: 13%;
 }
 
-#aboutMeButton{
-    font-size: 10px;
-    height:3vh;
-    width: 4vw;
-    background-color: #202020;
-    color: white;
-    font-family: MECC;
-    cursor: pointer;
-    margin-right: 20%;
-}
-
-#muteMusicButton{
-    font-size: 10px;
-    height:3vh;
-    width: 4vw;
-    background-color: #202020;
-    color: white;
-    font-family: MECC;
-    cursor: pointer;
-    margin-left: 20%
-}
-
-#aboutMeButton:hover {
-    background-color: gray;
-}
-
-#gameResetButton:hover {
+.footerButton:hover{
     background-color: gray;
 }
 
@@ -274,7 +248,7 @@ footer {
     padding-top: 3vh;
 }
 
-.aboutModal {
+.aboutModal, .gameModal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -289,24 +263,6 @@ footer {
     font-family: cursive;
     text-align: center;
     margin-top: 7%;
-    padding-top: 6%;
-}
-
-.gameModal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 45%;
-    height: 90%;
-    background-image: url(images/parchment.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    display: none;
-    color: black;
-    font-family: cursive;
-    text-align: center;
-    margin-top: 15%;
     padding-top: 6%;
 }
 
@@ -346,7 +302,7 @@ a{
     font-size: 1.2vw;
 }
 
-button:focus {
+button:focus{
     outline:0;
 }
 
