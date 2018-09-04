@@ -41,7 +41,7 @@ function initializeApplication() {
     let healthBar = createhealthBar(cards);
     $('#rightSideBar').append(healthBar);
     applyDefaultsToAllCardData(cardTypes, defaultMethods);
-    themeSong.play();
+    playMusic();
 }
 
 function dealCards(cardData) {
@@ -368,6 +368,11 @@ function closeTheModal() {
     $('.aboutModal').removeClass('modalVisibility');
     $('.gameModal').removeClass('modalVisibility');
     $('.card').removeClass('disableClick');
+}
+
+async function playMusic() {
+    await sleepTime(3000);
+    themeSong.play();
 }
 
 function toggleMusic() {
