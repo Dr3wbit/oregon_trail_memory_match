@@ -173,7 +173,7 @@ header {
 }
 
 footer {
-    width: 100vw;
+    width: 100%;
     background-color: black;
     padding-top: 2%;
     display: block;
@@ -186,15 +186,15 @@ footer {
 }
 
 .footerButton{
-    font-size: 1.5vmin;
-    height: 3vh;
+    font-size: 1.4vmin;
+    height: auto;
     width: auto;
     background-color: #202020;
     color: white;
     font-family: MECC;
     cursor: pointer;
-    margin-left: 12%;
-    margin-right: 12%;
+    margin-left: 10%;
+    margin-right: 10%;
     text-align: center;
 }
 
