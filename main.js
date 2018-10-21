@@ -36,12 +36,16 @@ const defaultMethods = {
 }
 
 function initializeApplication() {
+    startGame();
+    playMusic();
+}
+
+function startGame(){
     let cards = dealCards(cardTypes, level);
     $('#gameBody').append(cards);
     let healthBar = createhealthBar(cards);
     $('#rightSideBar').append(healthBar);
     applyDefaultsToAllCardData(cardTypes, defaultMethods);
-    playMusic();
 }
 
 function dealCards(cardData) {
@@ -341,7 +345,7 @@ function resetGame() {
     $('#difficulty').text('EASY');
     $('#mainText').text('Match The Cards!');
     emptyGameBoard();
-    initializeApplication();
+    startGame();
 }
 
 function sleepTime(time) {
@@ -351,7 +355,7 @@ function sleepTime(time) {
 async function prepareNextLevel() {
     await sleepTime(2000);
     emptyGameBoard();
-    initializeApplication();
+    startGame();
 }
 
 function openGameModal() {
