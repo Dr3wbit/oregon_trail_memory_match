@@ -13,7 +13,7 @@ cardMatchSound.volume = .2;
 const themeSong = new Audio();
 themeSong.src = 'soundFX/main_song.mp3';
 themeSong.volume = .2;
-themeSong.autoplay = true;
+themeSong.loop = true;
 
 const ailmentSound = new Audio();
 ailmentSound.src = 'soundFX/ailment.wav';
